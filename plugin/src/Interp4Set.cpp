@@ -40,7 +40,7 @@ void Interp4Set::PrintCmd() const
   /*
    *  Tu trzeba napisać odpowiednio zmodyfikować kod poniżej.
    */
-  cout << GetCmdName() << " Obj_A " << _wsp_x  << " 10" << endl;
+  cout << GetCmdName() << " Obj_A " << _wsp_x <<" " << _wsp_y<<" " << _kat_OX<<" "<< _kat_OY<<" " << _kat_OZ << endl;
 }
 
 

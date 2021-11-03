@@ -37,18 +37,20 @@ istringstream IStrm4Cmds;
 
 ExecPreprocesor(argv[1],IStrm4Cmds);
 
-cout << endl << IStrm4Cmds.str() << endl; 	
-Interp4Program Lib;
+ 
+ cout << endl <<"Zawartosc pliku opis_dzialan.cmd :"<<endl<< IStrm4Cmds.str() << endl; 	
+Interp4Program LibInterp;
 string Cmd;
-
+ cout<< "Wczytane polecenia:" <<endl;
   while(IStrm4Cmds >> Cmd)
   {
-    cout << "Komenda:" << Cmd << endl;
+   
 
-    Interp4Program::const_iterator Iter = Lib.find(Cmd);
+    std::map<const std::string, std::shared_ptr<Interf4Plugin>>::const_iterator Iter = LibInterp._LibList.find(Cmd);
 
     Interp4Command *pInterp = Iter->second->_pCreateCmd();
 
+    pInterp->ReadParams(IStrm4Cmds);
     pInterp->PrintCmd();
 
     delete pInterp;

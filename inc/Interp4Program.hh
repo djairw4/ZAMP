@@ -6,6 +6,14 @@
 #include<map>
 #include <memory>
 
-typedef std::map<const std::string, std::shared_ptr<Interf4Plugin>> Interp4Program;
+
+class Interp4Program{
+
+public:
+
+  std::map<const std::string, std::shared_ptr<Interf4Plugin>> _LibList;
+  Interp4Program();
+};
+
 
 #endif

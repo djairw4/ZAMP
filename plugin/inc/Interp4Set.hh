@@ -26,11 +26,12 @@ class Interp4Set: public Interp4Command {
    *  do przechowywania wartości parametrów danego polecenia.
    *  Ponieżej zdefiniowane jest tylko jedno pole jako przykład.
    */
-  double  _wsp_x;
-  double  _wsp_y;
-  double  _kat_OX;
-  double  _kat_OY;
-  double  _kat_OZ;
+  std::string _ObjName;
+  double  _X;
+  double  _Y;
+  double  _AngOX_deg;
+  double  _AngOY_deg;
+  double  _AngOZ_deg;
 
  public:
   /*!

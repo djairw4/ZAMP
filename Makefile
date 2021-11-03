@@ -22,11 +22,14 @@ LDFLAGS=-Wall
 
 
 
-interp: obj/main.o
-	g++ ${LDFLAGS} -o interp  obj/main.o -ldl
+interp: obj/main.o obj/Interf4Plugin.o
+	g++ ${LDFLAGS} -o interp  obj/main.o obj/Interf4Plugin.o -ldl
 
-obj/main.o: src/main.cpp inc/Interp4Command.hh
+obj/main.o: src/main.cpp inc/Interp4Command.hh inc/Interp4Program.hh inc/Interf4Plugin.hh
 	g++ -c ${CPPFLAGS} -o obj/main.o src/main.cpp
+
+obj/Interf4Plugin.o: src/Interf4Plugin.cpp inc/Interf4Plugin.hh
+	g++ -c ${CPPFLAGS} -o obj/Interf4Plugin.o src/Interf4Plugin.cpp
 
 clean:
 	rm -f obj/* interp core*

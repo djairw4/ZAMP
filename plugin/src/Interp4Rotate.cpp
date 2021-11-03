@@ -28,7 +28,7 @@ Interp4Command* CreateCmd(void)
 /*!
  *
  */
-Interp4Rotate::Interp4Rotate(): _szybkosc_kat(0), _os('z'), _kat_ob(0)
+Interp4Rotate::Interp4Rotate():_ObjName("Nieznany"), _AngSpeed_degS(0), _Axis('z'), _RotAng_deg(0)
 {}
 
 
@@ -40,7 +40,7 @@ void Interp4Rotate::PrintCmd() const
   /*
    *  Tu trzeba napisać odpowiednio zmodyfikować kod poniżej.
    */
-  cout << GetCmdName() << " Obj_A " << _szybkosc_kat  << _os << _kat_ob  << endl;
+  cout << GetCmdName() <<" "<< _ObjName <<" "<< _AngSpeed_degS<<" "<< _Axis<<" "<< _RotAng_deg<< endl;
 }
 
 
@@ -73,6 +73,8 @@ bool Interp4Rotate::ReadParams(std::istream& Strm_CmdsList)
   /*
    *  Tu trzeba napisać odpowiedni kod.
    */
+
+  Strm_CmdsList >> _ObjName >> _AngSpeed_degS >> _Axis >> _RotAng_deg;
   return true;
 }
 
@@ -91,5 +93,5 @@ Interp4Command* Interp4Rotate::CreateCmd()
  */
 void Interp4Rotate::PrintSyntax() const
 {
-  cout << "   Rotate  NazwaObiektu  szybkosc_katowa nazwa_osi kat_obrotu" << endl;
+  cout << "   Rotate  NazwaObiektu  szybkosc_katowa(stopnie/sek) nazwa_osi kat_obrotu(stopnie)" << endl;
 }

@@ -28,7 +28,7 @@ Interp4Command* CreateCmd(void)
 /*!
  *
  */
-Interp4Set::Interp4Set(): _wsp_x(0), _wsp_y(0), _kat_OX(0), _kat_OY(0), _kat_OZ(0)
+Interp4Set::Interp4Set():_ObjName("Nieznany"), _X(0), _Y(0), _AngOX_deg(0), _AngOY_deg(0), _AngOZ_deg(0)
 {}
 
 
@@ -40,7 +40,7 @@ void Interp4Set::PrintCmd() const
   /*
    *  Tu trzeba napisać odpowiednio zmodyfikować kod poniżej.
    */
-  cout << GetCmdName() << " Obj_A " << _wsp_x <<" " << _wsp_y<<" " << _kat_OX<<" "<< _kat_OY<<" " << _kat_OZ << endl;
+  cout << GetCmdName() <<" " << _ObjName <<" "<< _X <<" " << _Y <<" " << _AngOX_deg<<" "<< _AngOY_deg<<" " << _AngOZ_deg << endl;
 }
 
 
@@ -61,6 +61,7 @@ bool Interp4Set::ExecCmd( MobileObj  *pMobObj,  int  Socket) const
   /*
    *  Tu trzeba napisać odpowiedni kod.
    */
+
   return true;
 }
 
@@ -73,6 +74,9 @@ bool Interp4Set::ReadParams(std::istream& Strm_CmdsList)
   /*
    *  Tu trzeba napisać odpowiedni kod.
    */
+
+
+  Strm_CmdsList >> _ObjName >> _X >> _Y >> _AngOX_deg >> _AngOY_deg >> _AngOZ_deg;
   return true;
 }
 

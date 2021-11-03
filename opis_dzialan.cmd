@@ -7,8 +7,14 @@
 #define kat_oz 0
 #define szybkosc 10
 #define dlugosc_drogi 10
+#define czas 250
+#define szybkosc_kat 13
+#define os y 
+#define kat_obrotu 90
 
 Set nazwa_obiektu wsp_x wsp_y kat_ox kat_oy kat_oz  
 Move nazwa_obiektu szybkosc dlugosc_drogi
+Pause czas  
+Rotate nazwa_obiektu szybkosc_kat os kat_obrotu
 
 

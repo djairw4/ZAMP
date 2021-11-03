@@ -26,7 +26,7 @@ class Interp4Pause: public Interp4Command {
    *  do przechowywania wartości parametrów danego polecenia.
    *  Ponieżej zdefiniowane jest tylko jedno pole jako przykład.
    */
-  int  _czas_ms;
+  int  _Time_ms;
 
  public:
   /*!

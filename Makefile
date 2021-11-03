@@ -1,4 +1,4 @@
-__start__: obj __lines_for_space__ interp __plugin__
+__start__: obj __lines_for_space__ interp __plugin__ __xmlinterp__
 	export LD_LIBRARY_PATH="./libs"; ./interp ./opis_dzialan.cmd
 
 obj:
@@ -15,6 +15,10 @@ __lines_for_space__:
 
 __plugin__:
 	cd plugin; make
+
+__xmlinterp__:
+	cd xmlinterp4config; make
+
 
 CPPFLAGS=-Wall -pedantic -std=c++17 -iquote inc
 LDFLAGS=-Wall

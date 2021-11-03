@@ -46,7 +46,7 @@ string Cmd;
   {
    
 
-    std::map<const std::string, std::shared_ptr<Interf4Plugin>>::const_iterator Iter = LibInterp._LibList.find(Cmd);
+    std::map<const std::string, std::shared_ptr<Interf4Plugin>>::const_iterator    Iter = LibInterp._LibList.find(Cmd);
 
     Interp4Command *pInterp = Iter->second->_pCreateCmd();
 

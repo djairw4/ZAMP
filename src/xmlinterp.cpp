@@ -15,8 +15,9 @@ using namespace std;
  * Konstruktor klasy. Tutaj należy zainicjalizować wszystkie
  * dodatkowe pola.
  */
-XMLInterp4Config::XMLInterp4Config(Configuration &rConfig): _Config(rConfig)
+XMLInterp4Config::XMLInterp4Config(Configuration &rConfig):_Config(rConfig)
 {
+
 }
 
 
@@ -134,8 +135,20 @@ void XMLInterp4Config::ProcessCubeAttrs(const xercesc::Attributes  &rAttrs)
  // IStrm >> Scale;
  //
  istringstream   IStrm;
+ string Name;
  Vector3D  Shift, Scale, Rot, Trans, RGB;
  
+ 
+ IStrm.str(sValue_Name);
+ IStrm >> Name;
+ if (IStrm.fail()) {
+     cerr << " Blad!!!" << endl;
+ } else {
+     cout << " Name: " << endl;
+     cout << "     " << Name << endl;
+ }
+ 
+ IStrm.clear();
  IStrm.str(sValue_Shift);
  IStrm >> Shift[0] >> Shift[1] >> Shift[2];
  if (IStrm.fail()) {
@@ -184,6 +197,8 @@ void XMLInterp4Config::ProcessCubeAttrs(const xercesc::Attributes  &rAttrs)
      cout << " RGB: " << endl;
      cout << "     " << RGB << endl;
  }
+
+ _Config.addObj(Name, Shift, Scale, Rot, Trans, RGB);
 
  xercesc::XMLString::release(&sName_Name);
  xercesc::XMLString::release(&sName_Scale);

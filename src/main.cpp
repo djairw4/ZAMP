@@ -34,6 +34,7 @@ using namespace xercesc;
 
 
 
+
 /*!
  * \brief Wysyła napis do poprzez gniazdo sieciowe.
  *
@@ -395,16 +396,25 @@ istringstream IStrm4Cmds;
 ExecPreprocesor(argv[1],IStrm4Cmds);
 
  
- cout << endl <<"Zawartosc pliku opis_dzialan.cmd :"<<endl<< IStrm4Cmds.str() << endl; /*	
-Interp4Program LibInterp;
+ cout << endl <<"Zawartosc pliku opis_dzialan.cmd :"<<endl<< IStrm4Cmds.str() << endl; 	
+
 string Cmd;
+//cout<<" "<<Config._LibList.size()<<endl;
  cout<< "Wczytane polecenia:" <<endl;
+ 
   while(IStrm4Cmds >> Cmd)
   {
+  
    
 
-    std::map<const std::string, std::shared_ptr<Interf4Plugin>>::const_iterator    Iter = LibInterp._LibList.find(Cmd);
 
+    std::map<const std::string, std::shared_ptr<Interf4Plugin>>::const_iterator    Iter = Config.getLibList().find(Cmd);
+    /*
+    if (Iter == Config._LibList.end()) {
+      cout << "Nieznana komenda: " << Cmd<< endl;
+      return false;
+    }
+*/
     Interp4Command *pInterp = Iter->second->_pCreateCmd();
 
     pInterp->ReadParams(IStrm4Cmds);
@@ -412,6 +422,7 @@ string Cmd;
 
     delete pInterp;
   }
+  /*
   cout << "Port: " << PORT << endl;
   Scene               Scn;
   int                 Socket4Sending;   
@@ -456,141 +467,5 @@ string Cmd;
   ClientSender.CancelCountinueLooping();
   Thread4Sending.join();
   close(Socket4Sending);*/
-/************************************** MOVE **********************************/
-/*
-  void *pLibHnd_Move = dlopen("libInterp4Move.so",RTLD_LAZY);
-  Interp4Command *(*pCreateCmd_Move)(void);
-  void *pFun;
 
-  if (!pLibHnd_Move) {
-    cerr << "!!! Brak biblioteki: Interp4Move.so" << endl;
-    return 1;
-  }
-
-
-  pFun = dlsym(pLibHnd_Move,"CreateCmd");
-  if (!pFun) {
-    cerr << "!!! Nie znaleziono funkcji CreateCmd" << endl;
-    return 1;
-  }
-  pCreateCmd_Move = *reinterpret_cast<Interp4Command* (**)(void)>(&pFun);
-
-
-  Interp4Command *pCmd = pCreateCmd_Move();
-
-  cout << endl;
-  cout << pCmd->GetCmdName() << endl;
-  cout << endl;
-  pCmd->PrintSyntax();
-  cout << endl;
-  pCmd->PrintCmd();
-  cout << endl;
-  
-  delete pCmd;
-
-  dlclose(pLibHnd_Move);*/
-
-/***************************************** SET ***********************************/
-/*
- void *pLibHnd_Set = dlopen("libInterp4Set.so",RTLD_LAZY);
-  Interp4Command *(*pCreateCmd_Set)(void);
-
-  if (!pLibHnd_Set) {
-    cerr << "!!! Brak biblioteki: Interp4Set.so" << endl;
-    return 1;
-  }
-
-
-  pFun = dlsym(pLibHnd_Set,"CreateCmd");
-  if (!pFun) {
-    cerr << "!!! Nie znaleziono funkcji CreateCmd" << endl;
-    return 1;
-  }
-  pCreateCmd_Set = *reinterpret_cast<Interp4Command* (**)(void)>(&pFun);
-
-
-  pCmd = pCreateCmd_Set();
-
-  cout << endl;
-  cout << pCmd->GetCmdName() << endl;
-  cout << endl;
-  pCmd->PrintSyntax();
-  cout << endl;
-  pCmd->PrintCmd();
-  cout << endl;
-  
-  delete pCmd;
-
-  dlclose(pLibHnd_Set);
-
-*/
-/*********************************** ROTATE ***********************************************/
-/*
-  void *pLibHnd_Rotate = dlopen("libInterp4Rotate.so",RTLD_LAZY);
-  Interp4Command *(*pCreateCmd_Rotate)(void);
-
-  if (!pLibHnd_Rotate) {
-    cerr << "!!! Brak biblioteki: Interp4Rotate.so" << endl;
-    return 1;
-  }
-
-
-  pFun = dlsym(pLibHnd_Rotate,"CreateCmd");
-  if (!pFun) {
-    cerr << "!!! Nie znaleziono funkcji CreateCmd" << endl;
-    return 1;
-  }
-  pCreateCmd_Rotate = *reinterpret_cast<Interp4Command* (**)(void)>(&pFun);
-
-
-  pCmd = pCreateCmd_Rotate();
-
-  cout << endl;
-  cout << pCmd->GetCmdName() << endl;
-  cout << endl;
-  pCmd->PrintSyntax();
-  cout << endl;
-  pCmd->PrintCmd();
-  cout << endl;
-  
-  delete pCmd;
-
-  dlclose(pLibHnd_Rotate);*/
-
-/********************************** PAUSE ************************************/
-/*
-void *pLibHnd_Pause = dlopen("libInterp4Pause.so",RTLD_LAZY);
-  Interp4Command *(*pCreateCmd_Pause)(void);
-
-  if (!pLibHnd_Pause) {
-    cerr << "!!! Brak biblioteki: Interp4Pause.so" << endl;
-    return 1;
-  }
-
-
-  pFun = dlsym(pLibHnd_Pause,"CreateCmd");
-  if (!pFun) {
-    cerr << "!!! Nie znaleziono funkcji CreateCmd" << endl;
-    return 1;
-  }
-  pCreateCmd_Pause = *reinterpret_cast<Interp4Command* (**)(void)>(&pFun);
-
-
-  pCmd = pCreateCmd_Pause();
-
-  cout << endl;
-  cout << pCmd->GetCmdName() << endl;
-  cout << endl;
-  pCmd->PrintSyntax();
-  cout << endl;
-  pCmd->PrintCmd();
-  cout << endl;
-  
-  delete pCmd;
-
-  dlclose(pLibHnd_Pause);*/
-
-/************************************** command **********************************/
-
-  
 }

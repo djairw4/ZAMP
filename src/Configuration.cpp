@@ -16,14 +16,32 @@ using namespace xercesc;
 void Configuration::addLib(std::string LibName){
 std::shared_ptr<Interf4Plugin> pLib = std::make_shared<Interf4Plugin>(LibName);
 _LibList.insert(std::pair<const std::string, std::shared_ptr<Interf4Plugin>>(pLib->getCmdName(),pLib));
+//cout<<pLib->getCmdName()<<" "<<_LibList.size()<<endl;
+
 }
 
-std::map<const std::string, std::shared_ptr<Interf4Plugin>> Configuration::getLibList(){
+void Configuration::addObj(const std::string &Name, const Vector3D &Shift, const Vector3D &Scale, const Vector3D &Rot, const Vector3D &Trans, const Vector3D &RGB) 
+{
+  std::shared_ptr<MobileObj> newObj = std::make_shared<MobileObj>();
+
+  newObj->SetName(Name.c_str());  
+  newObj->SetShift(Shift);
+  newObj->SetScale(Scale); 
+  newObj->SetAng_Roll_deg(Rot[0]);
+  newObj->SetAng_Pitch_deg(Rot[1]);
+  newObj->SetAng_Yaw_deg(Rot[2]);
+  newObj->SetPosition_m(Trans);
+  newObj->SetColour(RGB);
+
+  _ObjList.insert(std::pair<std::string,std::shared_ptr<MobileObj>>(Name,newObj));
+}
+
+std::map<const std::string, std::shared_ptr<Interf4Plugin>> & Configuration::getLibList(){
 return _LibList;
 }
 
 
-std::map<std::string, std::shared_ptr<MobileObj>> Configuration::getObjList(){
+std::map<std::string, std::shared_ptr<MobileObj>> & Configuration::getObjList(){
 return _ObjList;
 }
 

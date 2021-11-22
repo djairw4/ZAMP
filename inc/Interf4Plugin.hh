@@ -14,7 +14,8 @@ public:
   Interf4Plugin(std::string LibName);
   ~Interf4Plugin();
   Interp4Command *(*_pCreateCmd)(void);
-
+  
+  std::string getCmdName(){ return _CmdName;}
 };
 
 #endif

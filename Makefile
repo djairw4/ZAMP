@@ -1,4 +1,4 @@
-__start__: obj __lines_for_space__ interp __plugin__ __xmlinterp__
+__start__: obj __lines_for_space__ interp __plugin__
 	export LD_LIBRARY_PATH="./libs"; ./interp ./opis_dzialan.cmd
 
 obj:
@@ -16,8 +16,6 @@ __lines_for_space__:
 __plugin__:
 	cd plugin; make
 
-__xmlinterp__:
-	cd xmlinterp4config; make
 
 
 CPPFLAGS=-Wall -pedantic -std=c++17 -iquote inc
@@ -26,10 +24,10 @@ LDFLAGS=-Wall
 
 
 
-interp: obj/main.o obj/Interf4Plugin.o obj/Interp4Program.o
-	g++ ${LDFLAGS} -o interp  obj/main.o obj/Interf4Plugin.o obj/Interp4Program.o -ldl
+interp: obj/main.o obj/Interf4Plugin.o obj/Interp4Program.o obj/xmlinterp.o obj/Configuration.o
+	g++ ${LDFLAGS} -o interp  obj/main.o obj/Interf4Plugin.o obj/Interp4Program.o obj/Configuration.o obj/xmlinterp.o -ldl -lxerces-c -lpthread
 
-obj/main.o: src/main.cpp inc/Interp4Command.hh inc/Interp4Program.hh inc/Interf4Plugin.hh
+obj/main.o: src/main.cpp inc/Interp4Command.hh inc/Interp4Program.hh inc/Interf4Plugin.hh inc/xmlinterp.hh
 	g++ -c ${CPPFLAGS} -o obj/main.o src/main.cpp
 
 obj/Interf4Plugin.o: src/Interf4Plugin.cpp inc/Interf4Plugin.hh
@@ -37,6 +35,12 @@ obj/Interf4Plugin.o: src/Interf4Plugin.cpp inc/Interf4Plugin.hh
 
 obj/Interp4Program.o: src/Interp4Program.cpp inc/Interp4Program.hh
 	g++ -c ${CPPFLAGS} -o obj/Interp4Program.o src/Interp4Program.cpp
+	
+obj/Configuration.o: src/Configuration.cpp inc/Configuration.hh inc/MobileObj.hh inc/xmlinterp.hh
+		g++ -c ${CPPFLAGS} -o obj/Configuration.o src/Configuration.cpp	
+	
+obj/xmlinterp.o: src/xmlinterp.cpp inc/xmlinterp.hh inc/Configuration.hh
+	g++ -c ${CPPFLAGS} -o obj/xmlinterp.o src/xmlinterp.cpp
 
 
 clean:

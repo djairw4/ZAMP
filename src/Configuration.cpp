@@ -1,3 +1,5 @@
+#include"Configuration.hh"
+
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <xercesc/sax2/XMLReaderFactory.hpp>
 #include <xercesc/sax2/DefaultHandler.hpp>
@@ -11,7 +13,19 @@ using namespace xercesc;
 
 
 
+void Configuration::addLib(std::string LibName){
+std::shared_ptr<Interf4Plugin> pLib = std::make_shared<Interf4Plugin>(LibName);
+_LibList.insert(std::pair<const std::string, std::shared_ptr<Interf4Plugin>>(pLib->getCmdName(),pLib));
+}
 
+std::map<const std::string, std::shared_ptr<Interf4Plugin>> Configuration::getLibList(){
+return _LibList;
+}
+
+
+std::map<std::string, std::shared_ptr<MobileObj>> Configuration::getObjList(){
+return _ObjList;
+}
 
 /*!
  * Czyta z pliku opis poleceń i dodaje je do listy komend,
@@ -21,7 +35,7 @@ using namespace xercesc;
  * \retval true - jeśli wczytanie zostało zrealizowane poprawnie,
  * \retval false - w przeciwnym przypadku.
  */
-bool ReadFile(const char* sFileName, Configuration &rConfig)
+bool Configuration::readFile(const char* sFileName)
 {
    try {
             XMLPlatformUtils::Initialize();
@@ -45,7 +59,8 @@ bool ReadFile(const char* sFileName, Configuration &rConfig)
 
    pParser->setFeature(XMLUni::fgXercesValidationErrorAsFatal, true);
 
-   DefaultHandler* pHandler = new XMLInterp4Config(rConfig);
+   DefaultHandler* pHandler = new XMLInterp4Config(*this);
+   //DefaultHandler* pHandler = new XMLInterp4Config(rConfig);
    pParser->setContentHandler(pHandler);
    pParser->setErrorHandler(pHandler);
 
@@ -95,10 +110,3 @@ bool ReadFile(const char* sFileName, Configuration &rConfig)
 
 
 
-
-int main (int argc, char* args[]) 
-{
-   Configuration   Config;
-
-   if (!ReadFile("config/config.xml",Config)) return 1;
-}

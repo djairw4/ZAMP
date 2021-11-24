@@ -1,0 +1,8 @@
+<map id="Send" name="Send">
+<area shape="rect" id="node1" title="Wysyła napis do poprzez gniazdo sieciowe." alt="" coords="433,60,485,87"/>
+<area shape="rect" id="node2" href="$main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="71,9,121,36"/>
+<area shape="rect" id="node3" href="$Sender_8hh.html#a49ba9261b2ded960bce23328c431e31d" title=" " alt="" coords="251,35,369,61"/>
+<area shape="rect" id="node4" href="$classScene.html#aeec85bd41ffc2aebc05167a1be398273" title=" " alt="" coords="259,85,361,112"/>
+<area shape="rect" id="node5" href="$classSender.html#a100a3e1f1a1ab4c388391e5b5a6de9f8" title="Ta metoda jest de facto treścią wątku komunikacyjnego." alt="" coords="235,137,385,178"/>
+<area shape="rect" id="node6" href="$Sender_8hh.html#a6b5860a5da38cf8fa0d6b1221373f3f9" title="Funkcja jest treścią wątku komunikacyjnego." alt="" coords="5,144,187,171"/>
+</map>

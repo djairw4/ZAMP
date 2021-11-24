@@ -65,6 +65,8 @@ class Interp4Pause: public Interp4Command {
   static Interp4Command* CreateCmd();
   
   virtual const std::string GetObjName();
+
+  virtual int send(int Sk2Server, const char *sMesg);
  };
 
 #endif

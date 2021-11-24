@@ -1,0 +1,14 @@
+warning: Tag 'PERL_PATH' at line 2166 of file 'Doxyfile' has become obsolete.
+         To avoid this warning please remove this line from your configuration file or upgrade it using "doxygen -u"
+warning: Tag 'MSCGEN_PATH' at line 2188 of file 'Doxyfile' has become obsolete.
+         To avoid this warning please remove this line from your configuration file or upgrade it using "doxygen -u"
+warning: doxygen no longer ships with the FreeSans font.
+You may want to clear or change DOT_FONTNAME.
+Otherwise you run the risk that the wrong font is being used for dot generated graphs.
+warning: The selected output language "polish" has not been updated
+since release 1.8.2.  As a result some sentences may appear in English.
+
+/home/djarzabe/zamp/zad/inc/Sender.hh:105: warning: argument 'rSender' of command @param is not found in the argument list of Fun_CommunicationThread(Sender *pSender)
+/home/djarzabe/zamp/zad/inc/Sender.hh:113: warning: The following parameter of Fun_CommunicationThread(Sender *pSender) is not documented:
+  parameter 'pSender'
+/home/djarzabe/zamp/zad/src/Configuration.cpp:48: warning: argument 'CmdList' of command @param is not found in the argument list of Configuration::readFile(const char *sFileName)

@@ -54,7 +54,7 @@ const char* Interp4Set::GetCmdName() const
 /*!
  *
  */
-bool Interp4Set::ExecCmd(std::shared_ptr<MobileObj> pMobObj, int Socket)const
+bool Interp4Set::ExecCmd(std::shared_ptr<MobileObj> pMobObj, int Socket)
 {
   Vector3D v=pMobObj->GetPosition_m();
   v[0]=_X;
@@ -65,10 +65,10 @@ bool Interp4Set::ExecCmd(std::shared_ptr<MobileObj> pMobObj, int Socket)const
   pMobObj->SetAng_Pitch_deg(_AngOY_deg);
   pMobObj->SetAng_Yaw_deg(_AngOZ_deg);
 
-  //std::string msg="UpdateObj";
-  //msg +=  pMobObj->GetStateDesc();
-  //Send(Socket,msg.c_str());
-  //std::cout << msg.c_str();
+  std::string msg="UpdateObj";
+  msg +=  pMobObj->GetStateDesc();
+  Send(Socket,msg.c_str());
+  std::cout << msg.c_str();
   return true;
 }
 
@@ -102,4 +102,19 @@ void Interp4Set::PrintSyntax() const
 
 const std::string Interp4Set::GetObjName(){
   return _ObjName;
+}
+
+int Interp4Set::send(int Sk2Server, const char *sMesg){
+  ssize_t  IlWyslanych;
+  ssize_t  IlDoWyslania = (ssize_t) strlen(sMesg);
+
+  while ((IlWyslanych = write(Sk2Server,sMesg,IlDoWyslania)) > 0) {
+    IlDoWyslania -= IlWyslanych;
+    sMesg += IlWyslanych;
+  }
+  if (IlWyslanych < 0) {
+    std::cerr << "*** Blad przeslania napisu." << std::endl;
+  }
+  return 0;
+
 }

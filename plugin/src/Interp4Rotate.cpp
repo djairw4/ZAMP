@@ -53,7 +53,7 @@ const char* Interp4Rotate::GetCmdName() const
 /*!
  *
  */
-bool Interp4Rotate::ExecCmd(std::shared_ptr<MobileObj> pMobObj, int Socket)const
+bool Interp4Rotate::ExecCmd(std::shared_ptr<MobileObj> pMobObj, int Socket)
 {
   if(_AngSpeed_degS!=0 && _RotAng_deg>0){
   double Time_us=abs(1000000*_RotAng_deg/_AngSpeed_degS);
@@ -81,7 +81,7 @@ bool Interp4Rotate::ExecCmd(std::shared_ptr<MobileObj> pMobObj, int Socket)const
       case 'z': pMobObj->SetAng_Yaw_deg(kat);
       break;
     }    
-    std::string msg="UpdateObj";
+    std::string msg="Update";
     msg +=  pMobObj->GetStateDesc();
     //Send(Socket,msg.c_str());
     std::cout << msg.c_str();
@@ -121,4 +121,18 @@ void Interp4Rotate::PrintSyntax() const
 
 const std::string Interp4Rotate::GetObjName(){
   return _ObjName;
+}
+
+int Interp4Rotate::send(int Sk2Server, const char *sMesg){
+  ssize_t  IlWyslanych;
+  ssize_t  IlDoWyslania = (ssize_t) strlen(sMesg);
+
+  while ((IlWyslanych = write(Sk2Server,sMesg,IlDoWyslania)) > 0) {
+    IlDoWyslania -= IlWyslanych;
+    sMesg += IlWyslanych;
+  }
+  if (IlWyslanych < 0) {
+    std::cerr << "*** Blad przeslania napisu." << std::endl;
+  }
+  return 0;
 }

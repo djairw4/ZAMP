@@ -1,0 +1,6 @@
+<map id="Configuration::addLib" name="Configuration::addLib">
+<area shape="rect" id="node1" title=" " alt="" coords="728,13,871,39"/>
+<area shape="rect" id="node2" href="$classXMLInterp4Config.html#a18cd48f030387cdc1c52211856735f33" title="Analizuje atrybuty i odpwiednio je interpretuje." alt="" coords="500,5,680,47"/>
+<area shape="rect" id="node3" href="$classXMLInterp4Config.html#a5e3c76e68652f288d9bad7ce55493253" title="Wykonuje operacje związane z danym elementem XML." alt="" coords="259,5,452,47"/>
+<area shape="rect" id="node4" href="$classXMLInterp4Config.html#a5588af2dc423d361e688cbad0a3da877" title="Wywoływana jest po napotkaniu nowego elementu XML." alt="" coords="5,13,211,39"/>
+</map>

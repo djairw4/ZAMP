@@ -264,13 +264,13 @@ string Cmd;
     
     }
     
-  
-    //pInterp->PrintCmd();
     pInterp->ExecCmd(pMobObj,Socket4Sending);
+    if(Cmd!="Pause"){
     std::string msg="UpdateObj";
-  msg +=  pMobObj->GetStateDesc();
-  Send(Socket4Sending,msg.c_str());
-  std::cout << msg.c_str();
+    msg +=  pMobObj->GetStateDesc();
+    Send(Socket4Sending,msg.c_str());
+    //std::cout << msg.c_str();
+    }
     /*
     if(!pInterp->ExecCmd(pMobObj,Socket4Sending))
     {
@@ -278,7 +278,7 @@ string Cmd;
       delete pInterp;
       return false;
     }
-*/
+    */
     delete pInterp;
     usleep(300000);
   }

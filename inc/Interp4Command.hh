@@ -49,6 +49,9 @@
    virtual bool ReadParams(std::istream& Strm_CmdsList) = 0;
    
    virtual const std::string GetObjName() = 0;
+
+   virtual int send(int Sk2Server, const char *sMesg) = 0;
+
  };
 
 #endif

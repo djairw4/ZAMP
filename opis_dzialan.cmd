@@ -1,12 +1,12 @@
 
 #define nazwa_obiektu Podstawa
-#define wsp_x 20
-#define wsp_y 30
+#define wsp_x 0.5
+#define wsp_y 0.5
 #define kat_ox 30
 #define kat_oy 0
 #define kat_oz 0
-#define szybkosc 5
-#define dlugosc_drogi 10
+#define szybkosc -0.1
+#define dlugosc_drogi 0.5
 #define czas 2000
 #define szybkosc_kat 30
 #define os y 

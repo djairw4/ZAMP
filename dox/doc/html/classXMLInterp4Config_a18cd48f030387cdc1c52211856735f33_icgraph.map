@@ -1,0 +1,5 @@
+<map id="XMLInterp4Config::ProcessLibAttrs" name="XMLInterp4Config::ProcessLibAttrs">
+<area shape="rect" id="node1" title="Analizuje atrybuty i odpwiednio je interpretuje." alt="" coords="500,5,680,47"/>
+<area shape="rect" id="node2" href="$classXMLInterp4Config.html#a5e3c76e68652f288d9bad7ce55493253" title="Wykonuje operacje związane z danym elementem XML." alt="" coords="259,5,452,47"/>
+<area shape="rect" id="node3" href="$classXMLInterp4Config.html#a5588af2dc423d361e688cbad0a3da877" title="Wywoływana jest po napotkaniu nowego elementu XML." alt="" coords="5,13,211,39"/>
+</map>

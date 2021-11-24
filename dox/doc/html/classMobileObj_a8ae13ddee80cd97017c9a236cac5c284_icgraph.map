@@ -1,0 +1,4 @@
+<map id="MobileObj::GetPosition_m" name="MobileObj::GetPosition_m">
+<area shape="rect" id="node1" title="Udostępnia współrzędne położenia obiektu w trybie tylko do odczytu." alt="" coords="221,5,393,32"/>
+<area shape="rect" id="node2" href="$classMobileObj.html#a3a7b30d5e39abbe6b6d2ef88c92d878d" title="Udostępnia kolejny zestaw poleceń umożliwiających zespołu obiektu." alt="" coords="5,5,173,32"/>
+</map>

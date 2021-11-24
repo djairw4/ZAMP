@@ -1,0 +1,9 @@
+<map id="Sender::Watching_and_Sending" name="Sender::Watching_and_Sending">
+<area shape="rect" id="node1" title="Ta metoda jest de facto treścią wątku komunikacyjnego." alt="" coords="5,125,156,166"/>
+<area shape="rect" id="node2" href="$classAccessControl.html#ac05a143ff477cee359603872b7642943" title="Skasowanie informacji, że zmiana nastąpiła." alt="" coords="205,5,402,32"/>
+<area shape="rect" id="node3" href="$classScene.html#ab6b91786da2f67fb8826d51ded2107d0" title=" " alt="" coords="241,56,366,83"/>
+<area shape="rect" id="node4" href="$classAccessControl.html#a687d41c24cb496f070915eb7c813f08f" title="Dostęp do informacji o zmianie." alt="" coords="216,107,391,133"/>
+<area shape="rect" id="node5" href="$classAccessControl.html#abd4921dc14c3568563c2ae35f4b43c29" title="Zamyka dostęp całej sceny." alt="" coords="210,157,397,184"/>
+<area shape="rect" id="node6" href="$Scene_8hh.html#ad7d409ff5eb0e067f283005e8998d4c0" title="Wysyła napis do poprzez gniazdo sieciowe." alt="" coords="277,208,329,235"/>
+<area shape="rect" id="node7" href="$classAccessControl.html#aff3de9ca43882da925567c0057618cc5" title="Otwiera dostęp do całej sceny." alt="" coords="204,259,403,285"/>
+</map>

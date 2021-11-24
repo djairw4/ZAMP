@@ -65,10 +65,10 @@ bool Interp4Set::ExecCmd(std::shared_ptr<MobileObj> pMobObj, int Socket)const
   pMobObj->SetAng_Pitch_deg(_AngOY_deg);
   pMobObj->SetAng_Yaw_deg(_AngOZ_deg);
 
-  std::string msg="UpdateObj";
-  msg +=  pMobObj->GetStateDesc();
-  Send(Socket,msg.c_str());
-  std::cout << msg.c_str();
+  //std::string msg="UpdateObj";
+  //msg +=  pMobObj->GetStateDesc();
+  //Send(Socket,msg.c_str());
+  //std::cout << msg.c_str();
   return true;
 }
 

@@ -71,7 +71,7 @@ bool Interp4Rotate::ExecCmd(std::shared_ptr<MobileObj> pMobObj, int Socket)const
   for (int i = 0; i < iter; ++i)
   {
     
-    kat += _RotAng_deg/10;
+    kat += _AngSpeed_degS/10;
     
     switch(_Axis){
       case 'x': pMobObj->SetAng_Roll_deg(kat);
@@ -83,7 +83,7 @@ bool Interp4Rotate::ExecCmd(std::shared_ptr<MobileObj> pMobObj, int Socket)const
     }    
     std::string msg="UpdateObj";
     msg +=  pMobObj->GetStateDesc();
-    Send(Socket,msg.c_str());
+    //Send(Socket,msg.c_str());
     std::cout << msg.c_str();
     usleep(delay_us);
   }

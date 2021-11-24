@@ -1,7 +1,8 @@
 #include "Scene.hh"
 
-int Send(int Sk2Server, const char *sMesg)
-{
+
+int Send(int Sk2Server, const char *sMesg){
+
   ssize_t  IlWyslanych;
   ssize_t  IlDoWyslania = (ssize_t) strlen(sMesg);
 
@@ -14,7 +15,6 @@ int Send(int Sk2Server, const char *sMesg)
   }
   return 0;
 }
-
 
 Scene::Scene(std::map<std::string, std::shared_ptr<MobileObj>> ObjList, int Socket) : _ObjList(ObjList) {
   for ( const std::pair<std::string, std::shared_ptr<MobileObj>> & iter : _ObjList){ 

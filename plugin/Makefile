@@ -36,7 +36,7 @@ obj/Interp4Move.o: src/Interp4Move.cpp ../inc/Interp4Command.hh\
 
 
 obj/Interp4Set.o: src/Interp4Set.cpp ../inc/Interp4Command.hh\
-                        inc/Interp4Set.hh 
+                        inc/Interp4Set.hh ../inc/Scene.hh
 	g++ -c ${CPPFLAGS} -o obj/Interp4Set.o src/Interp4Set.cpp
 
 ../libs/libInterp4Rotate.so: obj/Interp4Rotate.o

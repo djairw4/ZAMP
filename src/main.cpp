@@ -254,21 +254,31 @@ string Cmd;
     
     std::shared_ptr<MobileObj> pMobObj=nullptr;
     if(Cmd!="Pause"){
-    string ObjName;
+    string ObjName=pInterp->GetObjName();
     pMobObj=Scn.FindMobileObj(ObjName);
     if(pMobObj==nullptr){
       cerr << "Nie znaleziono obiektu na scenie" << endl;
       delete pInterp;
       return false;
     }
+    
     }
+    
+  
+    //pInterp->PrintCmd();
+    pInterp->ExecCmd(pMobObj,Socket4Sending);
+    std::string msg="UpdateObj";
+  msg +=  pMobObj->GetStateDesc();
+  Send(Socket4Sending,msg.c_str());
+  std::cout << msg.c_str();
+    /*
     if(!pInterp->ExecCmd(pMobObj,Socket4Sending))
     {
       cerr << "Bład podczas wykonywania polecenia" << endl;
       delete pInterp;
       return false;
     }
-
+*/
     delete pInterp;
     usleep(300000);
   }

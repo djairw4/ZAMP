@@ -17,16 +17,6 @@
 #include <map>
 
 
-/*!
- * \brief Wysyła napis do poprzez gniazdo sieciowe.
- *
- * Wysyła napis do poprzez gniazdo sieciowe.
- * \param[in] Sk2Server - deskryptor gniazda sieciowego, poprzez które 
- *                        ma zostać wysłany napis w sensie języka C.
- * \param[in] sMesg - zawiera napis, który ma zostać wysłany poprzez
- *                    gniazdo sieciowe.
- */
-int Send(int Sk2Server, const char *sMesg);
 
 /*!
  * \brief Namiastka sceny z prostą kolekcją trzech wizualizowanych obiektów.
@@ -57,5 +47,18 @@ class Scene: public AccessControl {
    }*/
   
 };
+
+
+/*!
+ * \brief Wysyła napis do poprzez gniazdo sieciowe.
+ *
+ * Wysyła napis do poprzez gniazdo sieciowe.
+ * \param[in] Sk2Server - deskryptor gniazda sieciowego, poprzez które 
+ *                        ma zostać wysłany napis w sensie języka C.
+ * \param[in] sMesg - zawiera napis, który ma zostać wysłany poprzez
+ *                    gniazdo sieciowe.
+ */
+ 
+int Send( int Sk2Server, const char *sMesg);
 
 #endif //SCENE_HH

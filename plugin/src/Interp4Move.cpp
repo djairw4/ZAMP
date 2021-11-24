@@ -72,7 +72,7 @@ bool Interp4Move::ExecCmd(std::shared_ptr<MobileObj> pMobObj, int Socket)const
     pMobObj->SetPosition_m(v);
     std::string msg="UpdateObj";
     msg +=  pMobObj->GetStateDesc();
-    Send(Socket,msg.c_str());
+    //Send(Socket,msg.c_str());
     std::cout << msg.c_str();
     usleep(delay_us);
   }

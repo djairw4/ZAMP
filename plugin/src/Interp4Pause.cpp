@@ -37,9 +37,6 @@ Interp4Pause::Interp4Pause(): _Time_ms(0)
  */
 void Interp4Pause::PrintCmd() const
 {
-  /*
-   *  Tu trzeba napisać odpowiednio zmodyfikować kod poniżej.
-   */
   cout << GetCmdName() << " "<< _Time_ms << endl;
 }
 
@@ -56,11 +53,9 @@ const char* Interp4Pause::GetCmdName() const
 /*!
  *
  */
-bool Interp4Pause::ExecCmd( MobileObj  *pMobObj,  int  Socket) const
+bool Interp4Pause::ExecCmd(std::shared_ptr<MobileObj> pMobObj, int Socket)const
 {
-  /*
-   *  Tu trzeba napisać odpowiedni kod.
-   */
+  usleep(_Time_ms*1000);
   return true;
 }
 
@@ -70,10 +65,6 @@ bool Interp4Pause::ExecCmd( MobileObj  *pMobObj,  int  Socket) const
  */
 bool Interp4Pause::ReadParams(std::istream& Strm_CmdsList)
 {
-  /*
-   *  Tu trzeba napisać odpowiedni kod.
-   */
-  
   Strm_CmdsList >> _Time_ms;
   return true;
 }
@@ -85,6 +76,10 @@ bool Interp4Pause::ReadParams(std::istream& Strm_CmdsList)
 Interp4Command* Interp4Pause::CreateCmd()
 {
   return new Interp4Pause();
+}
+
+const std::string Interp4Pause::GetObjName(){
+  return "pusto";
 }
 
 

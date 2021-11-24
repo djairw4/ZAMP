@@ -12,13 +12,10 @@ using namespace std;
 
 
 /*!
- * Konstruktor klasy. Tutaj należy zainicjalizować wszystkie
- * dodatkowe pola.
+ * Konstruktor klasy.
  */
 XMLInterp4Config::XMLInterp4Config(Configuration &rConfig):_Config(rConfig)
-{
-
-}
+{}
 
 
 /*!
@@ -87,125 +84,67 @@ void XMLInterp4Config::ProcessCubeAttrs(const xercesc::Attributes  &rAttrs)
       exit(1);
  }
 
- /*
-  *  Tutaj pobierane sa nazwy pierwszego i drugiego atrybuty.
-  *  Sprawdzamy, czy na pewno jest to Name i Value.
-  */
-
- char* sName_Name = xercesc::XMLString::transcode(rAttrs.getQName(0));
- char* sName_Shift = xercesc::XMLString::transcode(rAttrs.getQName(1));
- char* sName_Scale = xercesc::XMLString::transcode(rAttrs.getQName(2));
- char* sName_Rot = xercesc::XMLString::transcode(rAttrs.getQName(3));
- char* sName_Trans = xercesc::XMLString::transcode(rAttrs.getQName(4));
- char* sName_RGB = xercesc::XMLString::transcode(rAttrs.getQName(5));
-
- XMLSize_t  Index = 0;
- char* sValue_Name = xercesc::XMLString::transcode(rAttrs.getValue(Index));
- char* sValue_Shift = xercesc::XMLString::transcode(rAttrs.getValue(1));
- char* sValue_Scale = xercesc::XMLString::transcode(rAttrs.getValue(2));
- char* sValue_Rot = xercesc::XMLString::transcode(rAttrs.getValue(3));
- char* sValue_Trans = xercesc::XMLString::transcode(rAttrs.getValue(4));
- char* sValue_RGB = xercesc::XMLString::transcode(rAttrs.getValue(5));
-
-
+std::string sName [6], sValue [6];
+for(int i=0;i<6;++i){
+sName[i]=xercesc::XMLString::transcode(rAttrs.getQName(i));
+sValue[i]= xercesc::XMLString::transcode(rAttrs.getValue(i));
+}
 
  //-----------------------------------------------------------------------------
  // Wyświetlenie nazw atrybutów i ich "wartości"
  //
- 
- cout << " Atrybuty:" << endl
-      << "     " << sName_Name << " = \"" << sValue_Name << "\"" << endl
-      << "     " << sName_Shift << " = \"" << sValue_Shift << "\"" << endl
-      << "     " << sName_Scale << " = \"" << sValue_Scale << "\"" << endl
-      << "     " << sName_Rot << " = \"" << sValue_Rot << "\"" << endl   
-      << "     " << sName_Trans << " = \"" << sValue_Trans << "\"" << endl   
-      << "     " << sName_RGB << " = \"" << sValue_RGB << "\"" << endl   
-      << endl;      
+
+cout << " Atrybuty:" << endl;      
+for(int i=0;i<6;++i){
+cout<< "     " << sName[i] << " = \"" << sValue[i] << "\"" << endl;
+}      
+cout << endl;      
  //-----------------------------------------------------------------------------
- // Przykład czytania wartości parametrów
- // Ten przykład jest zrobiony "na piechotę" wykorzystując osobne zmienne.
- // Skala powinna być wektorem. Czytanie powinno być rezlizowane z wykorzysaniem
- // wektorów, np.
- //
- //
- // istringstream IStrm;
- // IStrm.str(sValue_Scale);
- // Vector3D  Scale;
- //
- // IStrm >> Scale;
- //
+ // Czytanie wartości parametrów
+
  istringstream   IStrm;
  string Name;
  Vector3D  Shift, Scale, Rot, Trans, RGB;
  
- 
- IStrm.str(sValue_Name);
+ for(int i=0;i<6;++i){
+ IStrm.clear();
+ IStrm.str(sValue[i]);
+ if(sName[i]=="Name"){ 
  IStrm >> Name;
+ }
+ else if(sName[i]=="Shift"){
+ IStrm >> Shift[0] >> Shift[1] >> Shift[2];
+ }
+ else if(sName[i]=="Scale"){
+ IStrm >> Scale[0] >> Scale[1] >> Scale[2];
+ }
+ else if(sName[i]=="RotXYZ_deg"){
+ IStrm >> Rot[0] >> Rot[1] >> Rot[2];
+ }
+ else if(sName[i]=="Trans_m"){
+ IStrm >> Trans[0] >> Trans[1] >> Trans[2];
+ }
+ else if(sName[i]=="RGB"){
+ IStrm >> RGB[0] >> RGB[1] >> RGB[2];
+ }
  if (IStrm.fail()) {
      cerr << " Blad!!!" << endl;
  } else {
      cout << " Name: " << endl;
-     cout << "     " << Name << endl;
+     cout << "     " << sValue[i] << endl;
+ }
  }
  
- IStrm.clear();
- IStrm.str(sValue_Shift);
- IStrm >> Shift[0] >> Shift[1] >> Shift[2];
- if (IStrm.fail()) {
-     cerr << " Blad!!!" << endl;
- } else {
-     cout << " Shift: " << endl;
-     cout << "     " << Shift << endl;
- }
- 
- IStrm.clear();
- IStrm.str(sValue_Scale);
- IStrm >> Scale[0] >> Scale[1] >> Scale[2];
- if (IStrm.fail()) {
-     cerr << " Blad!!!" << endl;
- } else {
-     cout << " Scale: " << endl;
-     cout << "     " << Scale << endl;
- }
- 
- IStrm.clear();
- IStrm.str(sValue_Rot);
- IStrm >> Rot[0] >> Rot[1] >> Rot[2];
- if (IStrm.fail()) {
-     cerr << " Blad!!!" << endl;
- } else {
-     cout << " Rot: " << endl;
-     cout << "     " << Rot << endl;
- }
- 
- IStrm.clear();
- IStrm.str(sValue_Trans);
- IStrm >> Trans[0] >> Trans[1] >> Trans[2];
- if (IStrm.fail()) {
-     cerr << " Blad!!!" << endl;
- } else {
-     cout << " Trans: " << endl;
-     cout << "     " << Trans << endl;
- }
-
- IStrm.clear();
- IStrm.str(sValue_RGB);
- IStrm >> RGB[0] >> RGB[1] >> RGB[2];
- if (IStrm.fail()) {
-     cerr << " Blad!!!" << endl;
- } else {
-     cout << " RGB: " << endl;
-     cout << "     " << RGB << endl;
- }
-
  _Config.addObj(Name, Shift, Scale, Rot, Trans, RGB);
-
+ 
+/*
  xercesc::XMLString::release(&sName_Name);
  xercesc::XMLString::release(&sName_Scale);
  xercesc::XMLString::release(&sName_RGB);
+ 
  xercesc::XMLString::release(&sValue_Name);
  xercesc::XMLString::release(&sValue_Scale);
- xercesc::XMLString::release(&sValue_RGB);
+ xercesc::XMLString::release(&sValue_RGB);*/
 }
 
 

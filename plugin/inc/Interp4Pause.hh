@@ -48,7 +48,7 @@ class Interp4Pause: public Interp4Command {
   /*!
    * \brief Wykonuje polecenie oraz wizualizuje jego realizację
    */
-  virtual bool ExecCmd( MobileObj  *pMobObj, int Socket) const;
+  virtual bool ExecCmd(std::shared_ptr<MobileObj> pMobObj, int Socket) const;
   /*!
    * \brief Czyta wartości parametrów danego polecenia
    */
@@ -63,6 +63,8 @@ class Interp4Pause: public Interp4Command {
    *  Ta metoda nie musi być zdefiniowna w klasie bazowej.
    */
   static Interp4Command* CreateCmd();
+  
+  virtual const std::string GetObjName();
  };
 
 #endif

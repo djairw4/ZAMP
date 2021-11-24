@@ -5,6 +5,8 @@
 #include "Interp4Command.hh"
 #include "MobileObj.hh"
 #include "Interp4Program.hh"
+#include "Sender.hh"
+#include "Scene.hh"
 #include <memory>
 
 #include <xercesc/sax2/SAX2XMLReader.hpp>
@@ -17,47 +19,12 @@
 
 using namespace std;
 using namespace xercesc;
-#include <iostream>
-#include <iomanip>
-#include <cstring>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <unistd.h>
-#include <thread>
-#include <mutex>
-#include <vector>
-#include "AccessControl.hh"
-#include "Port.hh"
 
 
 
 
 
-/*!
- * \brief Wysyła napis do poprzez gniazdo sieciowe.
- *
- * Wysyła napis do poprzez gniazdo sieciowe.
- * \param[in] Sk2Server - deskryptor gniazda sieciowego, poprzez które 
- *                        ma zostać wysłany napis w sensie języka C.
- * \param[in] sMesg - zawiera napis, który ma zostać wysłany poprzez
- *                    gniazdo sieciowe.
- */
-int Send(int Sk2Server, const char *sMesg)
-{
-  ssize_t  IlWyslanych;
-  ssize_t  IlDoWyslania = (ssize_t) strlen(sMesg);
 
-  while ((IlWyslanych = write(Sk2Server,sMesg,IlDoWyslania)) > 0) {
-    IlDoWyslania -= IlWyslanych;
-    sMesg += IlWyslanych;
-  }
-  if (IlWyslanych < 0) {
-    cerr << "*** Blad przeslania napisu." << endl;
-  }
-  return 0;
-}
 
 
 
@@ -187,152 +154,6 @@ class GeomObject {
 
 
 
-/*!
- * \brief Namiastka sceny z prostą kolekcją trzech wizualizowanych obiektów.
- */
-class Scene: public AccessControl {
-  public:
-    Scene(): _Container4Objects(3)
-    {
-      _Container4Objects[0].SetCmds(Cmds4Obj1);
-      _Container4Objects[1].SetCmds(Cmds4Obj2);
-      _Container4Objects[2].SetCmds(Cmds4Obj3);
-    }
-  
-  /*!
-   * \brief Prosta kolekcja obiektów sceny
-   */
-   std::vector<GeomObject>   _Container4Objects;
-};
-
-
-
-/*!
- * \brief Modeluje nadajnik poleceń odzwierciedlających aktualny stan sceny.
- *
- * Modeluje nadajnik poleceń odzwierciedlających aktualny stan sceny.
- * W tym celu monitoruje zmiany na scenie, a gdy je wykryje przesyła
- * informacje o aktualnej pozycji wszystkich obiektów.
- */
-class Sender {
-  /*!
-   * \brief Wartość tego pola decyduje o kontynuacji wykonywania wątku.
-   * 
-   * Wartość tego pola decyduje o kontynuacji wykonywania wątku.
-   * W przypadku wartości \p true, pętla wątku będzie wykonywana.
-   * Natomiast wartość \p false powoduje przerwanie pętli.
-   */
-   volatile bool    _ContinueLooping = true;
-  /*!
-   * \brief Deskryptor gniazda sieciowego, poprzez które wysyłane są polecenia.
-   */
-   int             _Socket = 0;
-  /*!
-   * \brief Wskaźnik na scenę, które stan jest przesyłany w postaci
-   *        poleceń do serwera graficzneg.
-   */
-   Scene          *_pScn = nullptr;
-
-  
- public:
-  /*!
-   * \brief Inicjalizuje obiekt deskryptorem gniazda i wskaźnikiem
-   *        na scenę, na zmianę stanu które będzie ten obiekt reagował.
-   */
-   Sender(int Socket, Scene *pScn): _Socket(Socket), _pScn(pScn) {}
-
-  /*!
-   * \brief Sprawdza, czy pętla wątku może być wykonywana.
-   * 
-   * Sprawdza, czy pętla wątku może być wykonywana.
-   * \retval true - pętla wątku może być nadal wykonywana.
-   * \retval false - w przypadku przeciwnym.
-   */
-   bool ShouldCountinueLooping() const { return _ContinueLooping; }
-  /*!
-   * \brief Powoduje przerwanie działania pętli wątku.
-   *
-   * Powoduje przerwanie działania pętli wątku.
-   * \warning Reakcja na tę operację nie będize natychmiastowa.
-   */  
-   void CancelCountinueLooping() { _ContinueLooping = false; }
-
-  /*!
-   * \brief Ta metoda jest de facto treścią wątku komunikacyjnego
-   *
-   * Przegląda scenę i tworzy odpowiednie polecenia, a następnie
-   * wysyła je do serwera.
-   * \param[in] Socket - deskryptor gniazda sieciowego, poprzez które
-   *                     wysyłane są polecenia.
-   */
-   void Watching_and_Sending() {
-     while (ShouldCountinueLooping()) {
-       if (!_pScn->IsChanged())  { usleep(10000); continue; }
-       _pScn->LockAccess();
-       
-       //------- Przeglądanie tej kolekcji to uproszczony przykład
-       
-       for (const GeomObject &rObj : _pScn->_Container4Objects) {
-                                     // Ta instrukcja to tylko uproszczony przykład
-	 cout << rObj.GetStateDesc();
-         Send(_Socket,rObj.GetStateDesc()); // Tu musi zostać wywołanie odpowiedniej
-                                           // metody/funkcji gerującej polecenia dla serwera.
-       }
-       
-       _pScn->CancelChange();
-       _pScn->UnlockAccess();
-     }
-   }
-  
-};
-
-/*!
- * \brief Funkcja jest treścią wątku komunikacyjnego
- * 
- * Funkcja jest treścią wątku komunikacyjnego.
- * \param[in] rSender - odpowiada za śledenie zmian na scenie 
- *                      i przesyłanie do serwera graficznego
- *                      aktualnego stanu sceny, gdy uległ on zmianie.
- */
-void Fun_CommunicationThread(Sender  *pSender)
-{
-  pSender->Watching_and_Sending();
-}
-
-
-/*!
- * Otwiera połączenie sieciowe
- * \param[out]  rSocket - deskryptor gniazda, poprzez które może być
- *                        realizowana komunikacja sieciowa.
- */
-bool OpenConnection(int &rSocket)
-{
-  struct sockaddr_in  DaneAdSerw;
-
-  bzero((char *)&DaneAdSerw,sizeof(DaneAdSerw));
-
-  DaneAdSerw.sin_family = AF_INET;
-  DaneAdSerw.sin_addr.s_addr = inet_addr("127.0.0.1");
-  DaneAdSerw.sin_port = htons(PORT);
-
-
-  rSocket = socket(AF_INET,SOCK_STREAM,0);
-
-  if (rSocket < 0) {
-     cerr << "*** Blad otwarcia gniazda." << endl;
-     return false;
-  }
-
-  if (connect(rSocket,(struct sockaddr*)&DaneAdSerw,sizeof(DaneAdSerw)) < 0)
-   {
-     cerr << "*** Brak mozliwosci polaczenia do portu: " << PORT << endl;
-     return false;
-   }
-  return true;
-}
-
-
-
 
 /*!
  * \brief Przykład wykonywania pojedynczej operacji z animacją.
@@ -346,7 +167,7 @@ bool OpenConnection(int &rSocket)
  * \retval true - Jeśli dokonan zosała zmiana stanu wszystkich obiektów.
  * \retval false - w przypadku przeciwnym.
  */
-bool ChangeState(Scene &Scn) //GeomObject *pObj, AccessControl  *pAccCtrl)
+/*bool ChangeState(Scene &Scn) //GeomObject *pObj, AccessControl  *pAccCtrl)
 {
   bool Changed;
 
@@ -361,7 +182,7 @@ bool ChangeState(Scene &Scn) //GeomObject *pObj, AccessControl  *pAccCtrl)
     usleep(300000);
   }
   return true;
-}
+}*/
 
 #define LINE_SIZE 100
 
@@ -391,7 +212,15 @@ Configuration   Config;
 
 if (!Config.readFile("config/config.xml")) return 1;
 
-istringstream IStrm4Cmds;
+  cout << "Port: " << PORT << endl;
+  
+  int                 Socket4Sending;   
+  
+
+  if (!OpenConnection(Socket4Sending)) return 1;
+  
+  Scene Scn(Config.getObjList(),Socket4Sending);
+  istringstream IStrm4Cmds;
 
 ExecPreprocesor(argv[1],IStrm4Cmds);
 
@@ -404,35 +233,50 @@ string Cmd;
  
   while(IStrm4Cmds >> Cmd)
   {
-  
-   
-
-
+ 
     std::map<const std::string, std::shared_ptr<Interf4Plugin>>::const_iterator    Iter = Config.getLibList().find(Cmd);
-    /*
-    if (Iter == Config._LibList.end()) {
-      cout << "Nieznana komenda: " << Cmd<< endl;
+    
+    if (Iter == Config.getLibList().end()) {
+      cerr << "Nieznana komenda: " << Cmd<< endl;
       return false;
     }
-*/
+
     Interp4Command *pInterp = Iter->second->_pCreateCmd();
 
-    pInterp->ReadParams(IStrm4Cmds);
+    if(!pInterp->ReadParams(IStrm4Cmds))
+    {
+      cerr << "Bład podczas wczytywania parametrow" << endl;
+      delete pInterp;
+      return false;
+    }
+    
     pInterp->PrintCmd();
+    
+    std::shared_ptr<MobileObj> pMobObj=nullptr;
+    if(Cmd!="Pause"){
+    string ObjName;
+    pMobObj=Scn.FindMobileObj(ObjName);
+    if(pMobObj==nullptr){
+      cerr << "Nie znaleziono obiektu na scenie" << endl;
+      delete pInterp;
+      return false;
+    }
+    }
+    if(!pInterp->ExecCmd(pMobObj,Socket4Sending))
+    {
+      cerr << "Bład podczas wykonywania polecenia" << endl;
+      delete pInterp;
+      return false;
+    }
 
     delete pInterp;
+    usleep(300000);
   }
-  /*
-  cout << "Port: " << PORT << endl;
-  Scene               Scn;
-  int                 Socket4Sending;   
-
-  if (!OpenConnection(Socket4Sending)) return 1;
-  
-  Sender   ClientSender(Socket4Sending,&Scn);
+  //Sender   ClientSender(Socket4Sending,&Scn);
   //  thread   Thread4Sending(Fun_Sender, Socket4Sending, &ClientSender);
 
-  thread   Thread4Sending(Fun_CommunicationThread,&ClientSender);
+  //thread   Thread4Sending(Fun_CommunicationThread,&ClientSender);
+  /*
   const char *sConfigCmds =
 "Clear\n"
 "AddObj Name=Podstawa1 RGB=(20,200,200) Scale=(4,2,1) Shift=(0.5,0,0) RotXYZ_deg=(0,-45,20) Trans_m=(-1,3,0)\n"
@@ -455,7 +299,7 @@ string Cmd;
     Scn.MarkChange();
     usleep(100000);
   }
-  usleep(100000);
+  usleep(100000);*/
 
   //-------------------------------------
   // Należy pamiętać o zamknięciu połączenia.
@@ -464,8 +308,10 @@ string Cmd;
   //
   cout << "Close\n" << endl; // To tylko, aby pokazac wysylana instrukcje
   Send(Socket4Sending,"Close\n");
-  ClientSender.CancelCountinueLooping();
-  Thread4Sending.join();
-  close(Socket4Sending);*/
+  //ClientSender.CancelCountinueLooping();
+  //Thread4Sending.join();
+  //close(Socket4Sending);
 
 }
+
+

@@ -24,10 +24,10 @@ LDFLAGS=-Wall
 
 
 
-interp: obj/main.o obj/Interf4Plugin.o obj/Interp4Program.o obj/xmlinterp.o obj/Configuration.o
-	g++ ${LDFLAGS} -o interp  obj/main.o obj/Interf4Plugin.o obj/Interp4Program.o obj/Configuration.o obj/xmlinterp.o -ldl -lxerces-c -lpthread
+interp: obj/main.o obj/Interf4Plugin.o obj/Interp4Program.o obj/xmlinterp.o obj/Configuration.o obj/Scene.o
+	g++ ${LDFLAGS} -o interp  obj/main.o obj/Interf4Plugin.o obj/Interp4Program.o obj/Configuration.o obj/Scene.o obj/xmlinterp.o -ldl -lxerces-c -lpthread
 
-obj/main.o: src/main.cpp inc/Interp4Command.hh inc/Interp4Program.hh inc/Interf4Plugin.hh inc/xmlinterp.hh
+obj/main.o: src/main.cpp inc/Interp4Command.hh inc/Interp4Program.hh inc/Interf4Plugin.hh inc/xmlinterp.hh inc/Scene.hh inc/Sender.hh
 	g++ -c ${CPPFLAGS} -o obj/main.o src/main.cpp
 
 obj/Interf4Plugin.o: src/Interf4Plugin.cpp inc/Interf4Plugin.hh
@@ -35,6 +35,9 @@ obj/Interf4Plugin.o: src/Interf4Plugin.cpp inc/Interf4Plugin.hh
 
 obj/Interp4Program.o: src/Interp4Program.cpp inc/Interp4Program.hh
 	g++ -c ${CPPFLAGS} -o obj/Interp4Program.o src/Interp4Program.cpp
+	
+obj/Scene.o: src/Scene.cpp inc/Scene.hh
+	g++ -c ${CPPFLAGS} -o obj/Scene.o src/Scene.cpp
 	
 obj/Configuration.o: src/Configuration.cpp inc/Configuration.hh inc/MobileObj.hh inc/xmlinterp.hh
 		g++ -c ${CPPFLAGS} -o obj/Configuration.o src/Configuration.cpp	

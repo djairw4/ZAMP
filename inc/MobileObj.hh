@@ -4,6 +4,7 @@
 
 #include <string>
 #include "Vector3D.hh"
+#include <sstream>
 
 
 /*!
@@ -121,7 +122,7 @@
        * w trybie tylko do odczytu.
        * Domyślnie przyjmuje się, że jest to geometryczny środek bryły.
        */
-       const Vector3D & GetPositoin_m() const { return _Position_m; }
+       const Vector3D & GetPosition_m() const { return _Position_m; }
       /*!
        * \brief Udostępnia współrzędne położenia obiektu w trybie modyfikacji.
        *
@@ -156,10 +157,42 @@
        const std::string & GetName() const { return _Name; }
        
        void SetScale(const Vector3D &Scale) { _Scale = Scale; }
+       
+       const Vector3D & GetScale() const { return _Scale; }
 
        void SetShift(const Vector3D &Shift) { _Shift = Shift; }
+       
+       const Vector3D & GetShift() const { return _Shift; }
 
        void SetColour(const Vector3D &RGB) { _RGB = RGB; }
+       
+       const Vector3D & GetColour() const { return _RGB; }
+       
+       const Vector3D GetRot() const {  
+       Vector3D v; 
+       v[0]=_Ang_Roll_deg; 
+       v[1]=_Ang_Pitch_deg;
+       v[2]=_Ang_Yaw_deg;
+       return v; 
+       }
+       
+      /*!
+      * \brief Udostępnia kolejny zestaw poleceń umożliwiających
+      *        zespołu obiektu.
+      *
+      * Udostępnia kolejny zestaw poleceń umożliwiających
+      * zespołu obiektu. Ta metoda "udaje" metodę, która w oryginalnym
+      * rozwiązaniu powinna wygenerować odpowiednie polecenie na podstawie
+      * przechowywanej informacji o położeniu i orientacji obiektu.
+      */
+      std::string GetStateDesc(){
+         std::ostringstream StateDesc;
+
+         StateDesc << " Name=" << GetName() <<" Shift="<< GetShift() << " Scale="<<GetScale()<<" RotXYZ_deg="<<GetRot() <<" Trans_m="<<GetPosition_m() << " RGB="<<GetColour()<< "\n";
+   
+
+         return StateDesc.str();
+      };
   
     };
 

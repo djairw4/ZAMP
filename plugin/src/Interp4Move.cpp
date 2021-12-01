@@ -3,6 +3,7 @@
 #include "MobileObj.hh"
 #include "Scene.hh"
 #include <unistd.h>
+#include "MacierzRot3D.hh"
 
 using std::cout;
 using std::endl;
@@ -55,31 +56,63 @@ const char* Interp4Move::GetCmdName() const
 /*!
  *
  */
-bool Interp4Move::ExecCmd(std::shared_ptr<MobileObj> pMobObj, int Socket)
+bool Interp4Move::ExecCmd(std::shared_ptr<MobileObj> pMobObj, AccessGuard *pAccGrd)
+{	
+  if(_Speed_mS!=0 && _Dist_m>=0){
+  double Time_us=abs(1000000*_Dist_m/_Speed_mS);
+  int delay_us=100000, iter=Time_us/delay_us;
+  
+  Vector3D v = pMobObj->GetPosition_m(),ex(0,1,0);
+  MacierzRot3D RotX,RotY,RotZ;
+  RotX.UstawRotX_st(pMobObj->GetAng_Roll_deg());
+  RotY.UstawRotY_st(pMobObj->GetAng_Pitch_deg());
+  RotZ.UstawRotY_st(pMobObj->GetAng_Pitch_deg());
+
+  for (int i = 0; i < iter; ++i)
+  {
+  {
+    std::lock_guard<std::mutex>  Lock(pAccGrd->UseGuard());
+    v += (((RotZ*RotY)*RotX)*ex)*_Speed_mS/10;
+    pMobObj->SetPosition_m(v);
+    std::string msg="UpdateObj";
+    msg +=  pMobObj->GetStateDesc();
+    send(pAccGrd->GetSocket(),msg.c_str());
+   // std::cout << msg.c_str();
+   }
+    usleep(delay_us);
+  }
+ }
+  return true;
+}
+/*
+bool Interp4Move::ExecCmd(std::shared_ptr<MobileObj> pMobObj, AccessGuard *pAccGrd)
 {	
   if(_Speed_mS!=0 && _Dist_m>=0){
   double Time_us=abs(1000000*_Dist_m/_Speed_mS);
   int delay_us=100000, iter=Time_us/delay_us;
   
   Vector3D v = pMobObj->GetPosition_m();
+  MacierzRot3D 
   double katOZ = pMobObj->GetAng_Yaw_deg();
   
   for (int i = 0; i < iter; ++i)
   {
+    pAccGrd->LockAccess();
     v[0] += _Speed_mS * cos(M_PI * katOZ/180)/10;
     v[1] += _Speed_mS * sin(M_PI * katOZ/180)/10;
     
     pMobObj->SetPosition_m(v);
-    std::string msg="Update";
+    std::string msg="UpdateObj";
     msg +=  pMobObj->GetStateDesc();
-    send(Socket,msg.c_str());
+    send(pAccGrd->GetSocket(),msg.c_str());
+    pAccGrd->UnlockAccess();
     std::cout << msg.c_str();
     usleep(delay_us);
   }
  }
   return true;
 }
-
+*/
 
 /*!
  *

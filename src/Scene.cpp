@@ -25,6 +25,8 @@ Scene::Scene(std::map<std::string, std::shared_ptr<MobileObj>> ObjList, int Sock
      usleep(300000);
   }
   }  
+ 
+  
   
 std::shared_ptr<MobileObj> Scene::FindMobileObj(std::string Name){
     std::map<const std::string, std::shared_ptr<MobileObj>>::const_iterator    Iter = _ObjList.find(Name);

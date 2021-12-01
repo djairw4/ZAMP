@@ -1,7 +1,0 @@
-<map id="XMLInterp4Config::WhenStartElement" name="XMLInterp4Config::WhenStartElement">
-<area shape="rect" id="node1" title="Wykonuje operacje związane z danym elementem XML." alt="" coords="5,39,199,80"/>
-<area shape="rect" id="node2" href="$classXMLInterp4Config.html#a5888326f2d9145908ff308e9aeff795e" title="Analizuje atrybuty i odpwiednio je interpretuje." alt="" coords="247,5,427,47"/>
-<area shape="rect" id="node4" href="$classXMLInterp4Config.html#a18cd48f030387cdc1c52211856735f33" title="Analizuje atrybuty i odpwiednio je interpretuje." alt="" coords="247,71,427,112"/>
-<area shape="rect" id="node3" href="$classConfiguration.html#a42f20f9eacc94d6774ea4ed7372479b0" title=" " alt="" coords="475,13,619,39"/>
-<area shape="rect" id="node5" href="$classConfiguration.html#af7db1cce0fd21bb261e0d4ca259489dd" title=" " alt="" coords="475,78,618,105"/>
-</map>

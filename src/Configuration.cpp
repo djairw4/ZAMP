@@ -36,6 +36,11 @@ void Configuration::addObj(const std::string &Name, const Vector3D &Shift, const
   _ObjList.insert(std::pair<std::string,std::shared_ptr<MobileObj>>(Name,newObj));
 }
 
+void Configuration::addObj(std::shared_ptr<MobileObj> & newObj) 
+{
+  _ObjList.insert(std::pair<std::string,std::shared_ptr<MobileObj>>(newObj->GetName(),newObj));
+}
+
 std::map<const std::string, std::shared_ptr<Interf4Plugin>> & Configuration::getLibList(){
 return _LibList;
 }

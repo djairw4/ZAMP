@@ -61,8 +61,6 @@ void XMLInterp4Config::ProcessLibAttrs(const xercesc::Attributes  &rAttrs)
  char* sLibName = xercesc::XMLString::transcode(rAttrs.getValue(Size));
 
  cout << "  Nazwa biblioteki: " << sLibName << endl;
-
- // Tu trzeba wpisać własny kod ...
  
  _Config.addLib(sLibName);
  
@@ -102,40 +100,47 @@ cout << endl;
  //-----------------------------------------------------------------------------
  // Czytanie wartości parametrów
 
- istringstream   IStrm;
- string Name;
- Vector3D  Shift, Scale, Rot, Trans, RGB;
+ stringstream   IOStrm;
+ //string Name;
+ //Vector3D  Shift, Scale, Rot, Trans, RGB;
  
  for(int i=0;i<6;++i){
- IStrm.clear();
+IOStrm<< sName[i] << " " << sValue[i] << " ";
+}  
+ std::shared_ptr<MobileObj> newObj = std::make_shared<MobileObj>();
+ IOStrm>> *newObj;
+ _Config.addObj(newObj);
+ /*
+ for(int i=0;i<6;++i){
+ IOStrm.clear();
  IStrm.str(sValue[i]);
  if(sName[i]=="Name"){ 
  IStrm >> Name;
  }
  else if(sName[i]=="Shift"){
- IStrm >> Shift[0] >> Shift[1] >> Shift[2];
+ IStrm >> Shift;
  }
  else if(sName[i]=="Scale"){
- IStrm >> Scale[0] >> Scale[1] >> Scale[2];
+ IStrm >> Scale;
  }
  else if(sName[i]=="RotXYZ_deg"){
- IStrm >> Rot[0] >> Rot[1] >> Rot[2];
+ IStrm >> Rot;
  }
  else if(sName[i]=="Trans_m"){
- IStrm >> Trans[0] >> Trans[1] >> Trans[2];
+ IStrm >> Trans;
  }
  else if(sName[i]=="RGB"){
- IStrm >> RGB[0] >> RGB[1] >> RGB[2];
+ IStrm >> RGB;
  }
  if (IStrm.fail()) {
      cerr << " Blad!!!" << endl;
  } else {
-     cout << " Name: " << endl;
+     cout << sName[i] << endl;
      cout << "     " << sValue[i] << endl;
  }
  }
- 
- _Config.addObj(Name, Shift, Scale, Rot, Trans, RGB);
+ */
+ //_Config.addObj(Name, Shift, Scale, Rot, Trans, RGB);
  
 /*
  xercesc::XMLString::release(&sName_Name);

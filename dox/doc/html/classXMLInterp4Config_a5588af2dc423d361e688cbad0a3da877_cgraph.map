@@ -1,8 +1,0 @@
-<map id="XMLInterp4Config::startElement" name="XMLInterp4Config::startElement">
-<area shape="rect" id="node1" title="Wywoływana jest po napotkaniu nowego elementu XML." alt="" coords="5,46,211,73"/>
-<area shape="rect" id="node2" href="$classXMLInterp4Config.html#a5e3c76e68652f288d9bad7ce55493253" title="Wykonuje operacje związane z danym elementem XML." alt="" coords="259,39,452,80"/>
-<area shape="rect" id="node3" href="$classXMLInterp4Config.html#a5888326f2d9145908ff308e9aeff795e" title="Analizuje atrybuty i odpwiednio je interpretuje." alt="" coords="500,5,680,47"/>
-<area shape="rect" id="node5" href="$classXMLInterp4Config.html#a18cd48f030387cdc1c52211856735f33" title="Analizuje atrybuty i odpwiednio je interpretuje." alt="" coords="500,71,680,112"/>
-<area shape="rect" id="node4" href="$classConfiguration.html#a42f20f9eacc94d6774ea4ed7372479b0" title=" " alt="" coords="728,13,872,39"/>
-<area shape="rect" id="node6" href="$classConfiguration.html#af7db1cce0fd21bb261e0d4ca259489dd" title=" " alt="" coords="729,78,871,105"/>
-</map>

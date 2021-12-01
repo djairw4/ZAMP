@@ -6,6 +6,7 @@
 #include "Vector3D.hh"
 #include <sstream>
 
+using std::endl,std::cerr,std::cout;
 
 /*!
  * \file
@@ -50,6 +51,8 @@
         * wokół osi \e OX. Wartość kąta wyrażona jest w stopniach.
         */
        double _Ang_Roll_deg = 0;
+       
+       //Vector3D _Orientation_deg(_Ang_Yaw_deg,_Ang_Pitch_deg,_Ang_Roll_deg);
 
        /*!
         * \brief Współrzędne aktualnej pozycji obiektu.
@@ -148,7 +151,7 @@
        *  Zmienia nazwę obiektu.
        *  \param[in] sName - nowa nazwa obiektu.
        */
-       void SetName(const char* sName) { _Name = sName; }
+       void SetName(std::string sName) { _Name = sName; }
        /*!
         * \brief Udostępnia nazwę obiektu.
 	*
@@ -176,6 +179,8 @@
        return v; 
        }
        
+       void SetRot(const Vector3D &v) { _Ang_Roll_deg = v[0]; _Ang_Pitch_deg = v[1]; _Ang_Yaw_deg=v[2]; }
+       
       /*!
       * \brief Udostępnia kolejny zestaw poleceń umożliwiających
       *        zespołu obiektu.
@@ -195,6 +200,17 @@
       };
   
     };
+    
+ /*!
+ * \brief Wczytuje współrzędne wektora z tekstowego strumienia wejściowego.
+ *
+ *  Wczytuje współrzędne wektora z tekstowego strumienia wejściowego.
+ *  \param IStrm - strumień wejściowy, z którego wczytywane są współrzędne wektora,
+ *  \param V - wektor, ktorego współrzędne wczytujemy
+ */
+
+std::istream & operator >> (std::istream &IStrm, MobileObj & MObj);
+
 
 
 #endif

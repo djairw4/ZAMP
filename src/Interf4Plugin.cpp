@@ -26,6 +26,12 @@ Interf4Plugin::Interf4Plugin(const std::string LibName){
   delete pCmd;
 }
 
+std::shared_ptr<Interp4Command> Interf4Plugin::CreateCmd()
+{
+  std::shared_ptr<Interp4Command>  PInterp(_pCreateCmd());
+  return PInterp;
+}
+
 Interf4Plugin::~Interf4Plugin(){
 
   dlclose(this->_pLibHnd);

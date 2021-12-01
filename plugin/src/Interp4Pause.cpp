@@ -53,8 +53,9 @@ const char* Interp4Pause::GetCmdName() const
 /*!
  *
  */
-bool Interp4Pause::ExecCmd(std::shared_ptr<MobileObj> pMobObj, int Socket)const
+bool Interp4Pause::ExecCmd(std::shared_ptr<MobileObj> pMobObj, AccessGuard *pAccGrd)
 {
+  std::lock_guard<std::mutex>  Lock(pAccGrd->UseGuard());
   usleep(_Time_ms*1000);
   return true;
 }
@@ -79,7 +80,7 @@ Interp4Command* Interp4Pause::CreateCmd()
 }
 
 const std::string Interp4Pause::GetObjName(){
-  return "pusto";
+  return "Brak";
 }
 
 

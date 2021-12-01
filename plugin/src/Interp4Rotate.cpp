@@ -53,7 +53,7 @@ const char* Interp4Rotate::GetCmdName() const
 /*!
  *
  */
-bool Interp4Rotate::ExecCmd(std::shared_ptr<MobileObj> pMobObj, int Socket)
+bool Interp4Rotate::ExecCmd(std::shared_ptr<MobileObj> pMobObj, AccessGuard *pAccGrd)
 {
   if(_AngSpeed_degS!=0 && _RotAng_deg>0){
   double Time_us=abs(1000000*_RotAng_deg/_AngSpeed_degS);
@@ -70,7 +70,8 @@ bool Interp4Rotate::ExecCmd(std::shared_ptr<MobileObj> pMobObj, int Socket)
   }
   for (int i = 0; i < iter; ++i)
   {
-    
+  {
+    std::lock_guard<std::mutex>  Lock(pAccGrd->UseGuard());
     kat += _AngSpeed_degS/10;
     
     switch(_Axis){
@@ -81,10 +82,11 @@ bool Interp4Rotate::ExecCmd(std::shared_ptr<MobileObj> pMobObj, int Socket)
       case 'z': pMobObj->SetAng_Yaw_deg(kat);
       break;
     }    
-    std::string msg="Update";
+    std::string msg="UpdateObj";
     msg +=  pMobObj->GetStateDesc();
-    //Send(Socket,msg.c_str());
-    std::cout << msg.c_str();
+    send(pAccGrd->GetSocket(),msg.c_str());
+    //std::cout << msg.c_str();
+    }
     usleep(delay_us);
   }
   }

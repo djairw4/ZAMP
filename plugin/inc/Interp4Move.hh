@@ -49,7 +49,7 @@ class Interp4Move: public Interp4Command {
   /*!
    * \brief Wykonuje polecenie oraz wizualizuje jego realizację
    */
-  virtual bool ExecCmd(std::shared_ptr<MobileObj> pMobObj, int Socket) const;
+  virtual bool ExecCmd(std::shared_ptr<MobileObj> pMobObj, AccessGuard *pAccGrd);
   /*!
    * \brief Czyta wartości parametrów danego polecenia
    */

@@ -28,11 +28,15 @@ class Interp4Set: public Interp4Command {
    *  Ponieżej zdefiniowane jest tylko jedno pole jako przykład.
    */
   std::string _ObjName;
+  /*
   double  _X;
   double  _Y;
   double  _AngOX_deg;
   double  _AngOY_deg;
   double  _AngOZ_deg;
+  */
+  Vector3D _Position;
+  Vector3D _Orientation;
 
  public:
   /*!
@@ -54,7 +58,7 @@ class Interp4Set: public Interp4Command {
   /*!
    * \brief Wykonuje polecenie oraz wizualizuje jego realizację
    */
-  virtual bool ExecCmd(std::shared_ptr<MobileObj> pMobObj, int Socket) const;
+  virtual bool ExecCmd(std::shared_ptr<MobileObj> pMobObj, AccessGuard *pAccGrd);
   /*!
    * \brief Czyta wartości parametrów danego polecenia
    */

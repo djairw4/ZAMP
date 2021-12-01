@@ -15,6 +15,7 @@ class Configuration {
   
   void addLib(std::string LibName);
   void addObj(const std::string &Name, const Vector3D &Shift, const Vector3D &Scale, const Vector3D &Rot, const Vector3D &Trans, const Vector3D &RGB); 
+  void addObj(std::shared_ptr<MobileObj> & newObj); 
   std::map<const std::string, std::shared_ptr<Interf4Plugin>> & getLibList();
   std::map<std::string, std::shared_ptr<MobileObj>> & getObjList();
   bool readFile(const char* sFileName);

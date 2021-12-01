@@ -77,6 +77,10 @@ namespace geom {
      * Wszystkim współrzędnym przypisana jest wartość 0.
      */
    Vector() { for (Type &Val : _Coord) Val = 0; }
+   
+   
+   Vector(Type x,Type y, Type z) {_Coord[0]=x;_Coord[1]=y;
+    _Coord[2]=z;}
 
     /*!
      * \brief Dostęp do wybranej składowej wektora.
@@ -153,7 +157,8 @@ namespace geom {
       * \retval  Vector<Type,Size>  - obiekt będący  iloczynu wektora
       *                            \b *this i liczby \e Mnoznik.
       */
-   Vector<Type,Size>  operator  * (Type Mnoznik) const;
+   //Vector<Type,Size>  operator  * (Type Mnoznik);
+  Vector<Type,Size> operator * (const Type &Liczba) const;
 
      /*!
       * \brief Mnożenie wektora przez liczbę i przypisanie wyniku
@@ -359,17 +364,24 @@ namespace geom {
  inline
  Vector<Type,Size> &Vector<Type,Size>::operator *= (Type Mnoznik)
  {
-   for (Type Crd : _Coord ) Crd *= Mnoznik;
+   for (Type Crd : _Coord ) Crd = Crd*Mnoznik;
    return *this;
  }
 
 
  template<typename Type, unsigned int Size>
  inline
- Vector<Type,Size> Vector<Type,Size>::operator * (Type Mnoznik) const
+ /*Vector<Type,Size> Vector<Type,Size>::operator * (Type Mnoznik) 
  {
-   return Vector<Type,Size>(*this) *= Mnoznik;  
- }
+   //return Vector<Type,Size>(*this) *= Mnoznik;  
+   for (Type Crd : _Coord ) Crd = Crd*Mnoznik;
+   return *this;
+ }*/
+ Vector<Type,Size> Vector<Type,Size>::operator * (const Type &Liczba) const{
+  Vector<Type,Size> Wynik; int Indeks=-1;
+  for(Type WspWek : _Coord){ Wynik[++Indeks]=Liczba*WspWek; }
+  return Wynik;
+}
 
 
 
@@ -377,7 +389,7 @@ namespace geom {
  inline
  Vector<Type,Size> &Vector<Type,Size>::operator /= (Type Digit)
  {
-   for (Type Crd : _Coord ) Crd /= Digit;
+   for (Type & Crd : _Coord ) Crd /= Digit;
    return *this;
  }
   
@@ -430,6 +442,24 @@ std::ostream & operator << ( std::ostream &OStrm, const geom::Vector<Type,Size> 
    }
    OStrm << ")";
    return OStrm;
+}
+
+
+/*!
+ * \brief Wczytuje współrzędne wektora z tekstowego strumienia wejściowego.
+ *
+ *  Wczytuje współrzędne wektora z tekstowego strumienia wejściowego.
+ *  \param IStrm - strumień wejściowy, z którego wczytywane są współrzędne wektora,
+ *  \param V - wektor, ktorego współrzędne wczytujemy
+ */
+template<typename Type, unsigned int Size>
+inline
+std::istream & operator >> (std::istream &IStrm, geom::Vector<Type,Size> &V)
+{
+   for (unsigned int Ind = 0; Ind < Size; ++Ind) {
+   	IStrm>>V[Ind]; if(!IStrm){return IStrm;}
+   }
+   return IStrm;
 }
 
 

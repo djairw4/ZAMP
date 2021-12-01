@@ -5,6 +5,7 @@
 #include<memory>
 #include "MobileObj.hh"
 #include "Scene.hh"
+#include "AccessGuard.hh"
 #include <unistd.h>
 
 /*!
@@ -42,7 +43,7 @@
    /*!
     * \brief Wykonuje polecenie oraz wizualizuje jego realizację.
     */
-   virtual bool ExecCmd(std::shared_ptr<MobileObj> pMobObj, int Socket) const = 0;
+   virtual bool ExecCmd(std::shared_ptr<MobileObj> pMobObj, AccessGuard *pAccGrd) = 0;
    /*!
     * \brief Czyta wartości parametrów danego polecenia.
     */

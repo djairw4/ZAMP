@@ -16,6 +16,7 @@ public:
   Interp4Command *(*_pCreateCmd)(void);
   
   std::string getCmdName(){ return _CmdName;}
+  std::shared_ptr<Interp4Command> CreateCmd();
 };
 
 #endif

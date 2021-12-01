@@ -1,9 +1,0 @@
-<map id="MobileObj::GetStateDesc" name="MobileObj::GetStateDesc">
-<area shape="rect" id="node1" title="Udostępnia kolejny zestaw poleceń umożliwiających zespołu obiektu." alt="" coords="5,132,173,159"/>
-<area shape="rect" id="node2" href="$classMobileObj.html#a58f12f6a354497faa11d7b7a71c318c5" title=" " alt="" coords="235,5,379,32"/>
-<area shape="rect" id="node3" href="$classMobileObj.html#a36ca729d6558a3c14f3420d7a4fc2510" title="Udostępnia nazwę obiektu." alt="" coords="236,56,379,83"/>
-<area shape="rect" id="node4" href="$classMobileObj.html#a8ae13ddee80cd97017c9a236cac5c284" title="Udostępnia współrzędne położenia obiektu w trybie tylko do odczytu." alt="" coords="221,107,393,133"/>
-<area shape="rect" id="node5" href="$classMobileObj.html#a29b05148ea1d7d4ad5e05ee256dcd750" title=" " alt="" coords="244,157,371,184"/>
-<area shape="rect" id="node6" href="$classMobileObj.html#a5633ca025d6ec94912f8fbb5f9a2b636" title=" " alt="" coords="237,208,377,235"/>
-<area shape="rect" id="node7" href="$classMobileObj.html#a0ebaffad99375c767350d9920ab98e6d" title=" " alt="" coords="240,259,375,285"/>
-</map>

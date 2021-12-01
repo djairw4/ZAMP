@@ -8,11 +8,11 @@
 
 
 class Interp4Program{
-
+Scene _Scn;
+std::map<const std::string, std::shared_ptr<Interf4Plugin>> _LibList;
 public:
-
-  std::map<const std::string, std::shared_ptr<Interf4Plugin>> _LibList;
   Interp4Program();
+  
 };
 
 

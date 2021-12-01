@@ -11,7 +11,7 @@
 #include <thread>
 #include <mutex>
 #include <vector>
-#include "AccessControl.hh"
+#include "AccessGuard.hh"
 #include "Port.hh"
 #include "MobileObj.hh"
 #include <map>
@@ -21,7 +21,7 @@
 /*!
  * \brief Namiastka sceny z prostą kolekcją trzech wizualizowanych obiektów.
  */
-class Scene: public AccessControl {
+class Scene  {
 
   std::map<std::string, std::shared_ptr<MobileObj>> _ObjList;
 

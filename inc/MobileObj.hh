@@ -11,202 +11,249 @@ using std::endl,std::cerr,std::cout;
 /*!
  * \file
  * \brief Zawiera definicję klasy MobileObj
- *
- * Plik zawiera definicję klasy MobileObj.
- * Definicja to może być rozszerzona i zmienione mogą
- * być nazwy pól. Obowiązkowe są jedynie nazwy metod.
  */
 
+/*!
+ * Nazwy pól klasy są jedynie propozycją i mogą być zmienione
+ * Nazwy metod są obowiązujące.
+ */
+class MobileObj {
+  /*!
+   * \brief Kąt \e yaw reprezentuje rotację zgodnie z ruchem wskazówek zegara
+   *        wokół osi \e OZ.
+   *
+   * Kąt \e yaw reprezentuje rotację zgodnie z ruchem wskazówek zegara
+   * wokół osi \e OZ. Wartość kąta wyrażona jest w stopniach.
+   */
+  double _Ang_Yaw_deg = 0;
 
-
-
-   /*!
-    * Nazwy pól klasy są jedynie propozycją i mogą być zmienione
-    * Nazwy metod są obowiązujące.
-    */
-    class MobileObj {
-       /*!
-        * \brief Kąt \e yaw reprezentuje rotację zgodnie z ruchem wskazówek zegara
-        *        wokół osi \e OZ.
-	*
-	* Kąt \e yaw reprezentuje rotację zgodnie z ruchem wskazówek zegara
-        * wokół osi \e OZ. Wartość kąta wyrażona jest w stopniach.
-        */
-       double _Ang_Yaw_deg = 0;
-
-       /*!
-        * \brief Kąt \e pitch reprezentuje rotację zgodnie z ruchem wskazówek zegara
-        *        wokół osi \e OY.
-	*
-	* Kąt \e pitch reprezentuje rotację zgodnie z ruchem wskazówek zegara
-        * wokół osi \e OY. Wartość kąta wyrażona jest w stopniach.
-        */
-       double _Ang_Pitch_deg = 0;
-
-       /*!
-        * \brief Kąt \e roll reprezentuje rotację zgodnie z ruchem wskazówek zegara
-        *        wokół osi \e OX.
-	*
-	* Kąt \e roll reprezentuje rotację zgodnie z ruchem wskazówek zegara
-        * wokół osi \e OX. Wartość kąta wyrażona jest w stopniach.
-        */
-       double _Ang_Roll_deg = 0;
-       
-       //Vector3D _Orientation_deg(_Ang_Yaw_deg,_Ang_Pitch_deg,_Ang_Roll_deg);
-
-       /*!
-        * \brief Współrzędne aktualnej pozycji obiektu.
-	*
-	* Współrzędne aktualnej pozycji obiektu. Przyjmuje się,
-	* że współrzędne wyrażone są w metrach.
-        */
-       Vector3D  _Position_m;
-
-       /*!
-        * \brief Nazwa obiektu, która go indentyfikuje.
-        *
-        * Nazwa obiektu, która go indentyfikuje. Z tego względu musi
-        * musi to być nazwa unikalna wśród wszystkich obiektów na scenie.
-        */
-       std::string  _Name;
-       
-       Vector3D _Shift;
-       
-       Vector3D _Scale;
-       
-       Vector3D _RGB;
-
-     public:
-      /*!
-       * \brief Udostępia wartość kąta \e roll.
-       *
-       * Udostępia wartość kąta \e roll. Jest ona wyrażona w stopniach.
-       */
-       double GetAng_Roll_deg() const { return _Ang_Roll_deg; }
-      /*!
-       * \brief Udostępia wartość kąta \e pitch.
-       *
-       * Udostępia wartość kąta \e pitch. Jest ona wyrażona w stopniach.
-       */
-       double GetAng_Pitch_deg() const { return _Ang_Pitch_deg; }
-       /*!
-       * \brief Udostępia wartość kąta \e yaw.
-       *
-       * Udostępia wartość kąta \e yaw. Jest ona wyrażona w stopniach.
-       */
-       double GetAng_Yaw_deg() const { return _Ang_Yaw_deg; }
-
-      /*!
-       * \brief Zmienia wartość kąta \e roll.
-       *
-       * Zmienia wartość kąta \e roll.
-       * \param[in] Ang_Roll_deg - nowa wartość kąta \e roll wyrażona w stopniach.
-       */
-       void SetAng_Roll_deg(double Ang_Roll_deg) { _Ang_Roll_deg = Ang_Roll_deg; }
-      /*!
-       * \brief Zmienia wartość kąta \e pitch.
-       *
-       * Zmienia wartość kąta \e pitch.
-       * \param[in] Ang_Pitch_deg - nowa wartość kąta \e pitch wyrażona w stopniach.
-       */
-       void SetAng_Pitch_deg(double Ang_Pitch_deg) { _Ang_Pitch_deg = Ang_Pitch_deg; }
-      /*!
-       * \brief Zmienia wartość kąta \e yaw.
-       *
-       * Zmienia wartość kąta \e yaw.
-       * \param[in] Ang_Yaw_deg - nowa wartość kąta \e yaw wyrażona w stopniach.
-       */
-       void SetAng_Yaw_deg(double Ang_Yaw_deg) { _Ang_Yaw_deg = Ang_Yaw_deg; }
-
-      /*!
-       * \brief Udostępnia współrzędne położenia obiektu w trybie tylko do odczytu.
-       *
-       * Udostępnia współrzędne punktu, który definiuje położenia obiektu
-       * w trybie tylko do odczytu.
-       * Domyślnie przyjmuje się, że jest to geometryczny środek bryły.
-       */
-       const Vector3D & GetPosition_m() const { return _Position_m; }
-      /*!
-       * \brief Udostępnia współrzędne położenia obiektu w trybie modyfikacji.
-       *
-       * Udostępnia współrzędne punktu, który definiuje położenia obiektu
-       * w trybie modyfikacji.
-       * Domyślnie przyjmuje się, że jest to geometryczny środek bryły.
-       */
-       Vector3D & UsePosition_m() { return _Position_m; }
-      /*!
-       * \brief Zmienia współrzędne położenia obiektu.
-       *
-       * Zmienia współrzędne punktu, który definiuje położenia obiektu.
-       * Domyślnie przyjmuje się, że jest to geometryczny środek bryły.
-       * \param[in] rPos_m - współrzędne nowgo położenia. Przyjmuje się,
-       *                     że są one wyrażone w metrach.
-       */
-       void SetPosition_m(const Vector3D &rPos_m) { _Position_m = rPos_m; }
-
-
-      /*!
-       * \brief Zmienia nazwę obiektu.
-       *
-       *  Zmienia nazwę obiektu.
-       *  \param[in] sName - nowa nazwa obiektu.
-       */
-       void SetName(std::string sName) { _Name = sName; }
-       /*!
-        * \brief Udostępnia nazwę obiektu.
-	*
-	* Udostępnia nazwę obiektu w trybie tylko do odczytu.
-        */
-       const std::string & GetName() const { return _Name; }
-       
-       void SetScale(const Vector3D &Scale) { _Scale = Scale; }
-       
-       const Vector3D & GetScale() const { return _Scale; }
-
-       void SetShift(const Vector3D &Shift) { _Shift = Shift; }
-       
-       const Vector3D & GetShift() const { return _Shift; }
-
-       void SetColour(const Vector3D &RGB) { _RGB = RGB; }
-       
-       const Vector3D & GetColour() const { return _RGB; }
-       
-       const Vector3D GetRot() const {  
-       Vector3D v; 
-       v[0]=_Ang_Roll_deg; 
-       v[1]=_Ang_Pitch_deg;
-       v[2]=_Ang_Yaw_deg;
-       return v; 
-       }
-       
-       void SetRot(const Vector3D &v) { _Ang_Roll_deg = v[0]; _Ang_Pitch_deg = v[1]; _Ang_Yaw_deg=v[2]; }
-       
-      /*!
-      * \brief Udostępnia kolejny zestaw poleceń umożliwiających
-      *        zespołu obiektu.
-      *
-      * Udostępnia kolejny zestaw poleceń umożliwiających
-      * zespołu obiektu. Ta metoda "udaje" metodę, która w oryginalnym
-      * rozwiązaniu powinna wygenerować odpowiednie polecenie na podstawie
-      * przechowywanej informacji o położeniu i orientacji obiektu.
-      */
-      std::string GetStateDesc(){
-         std::ostringstream StateDesc;
-
-         StateDesc << " Name=" << GetName() <<" Shift="<< GetShift() << " Scale="<<GetScale()<<" RotXYZ_deg="<<GetRot() <<" Trans_m="<<GetPosition_m() << " RGB="<<GetColour()<< "\n";
-   
-
-         return StateDesc.str();
-      };
+  /*!
+   * \brief Kąt \e pitch reprezentuje rotację zgodnie z ruchem wskazówek zegara
+   *        wokół osi \e OY.
+   *
+   * Kąt \e pitch reprezentuje rotację zgodnie z ruchem wskazówek zegara
+   * wokół osi \e OY. Wartość kąta wyrażona jest w stopniach.
+   */
+  double _Ang_Pitch_deg = 0;
   
-    };
+  /*!
+   * \brief Kąt \e roll reprezentuje rotację zgodnie z ruchem wskazówek zegara
+   *        wokół osi \e OX.
+   *
+   * Kąt \e roll reprezentuje rotację zgodnie z ruchem wskazówek zegara
+   * wokół osi \e OX. Wartość kąta wyrażona jest w stopniach.
+   */
+  double _Ang_Roll_deg = 0;
+  
+  //Vector3D _Orientation_deg(_Ang_Yaw_deg,_Ang_Pitch_deg,_Ang_Roll_deg);
+  
+  /*!
+   * \brief Współrzędne aktualnej pozycji obiektu.
+   *
+   * Współrzędne aktualnej pozycji obiektu. Przyjmuje się,
+   * że współrzędne wyrażone są w metrach.
+   */
+  Vector3D  _Position_m;
+  
+  /*!
+   * \brief Nazwa obiektu, która go indentyfikuje.
+   *
+   * Nazwa obiektu, która go indentyfikuje. Z tego względu musi
+   * musi to być nazwa unikalna wśród wszystkich obiektów na scenie.
+   */
+  std::string  _Name;
+
+  /*!                                                                          
+   * \brief Współrzędne środka ciężkości obiektu 
+   */
+  Vector3D _Shift;
+
+  /*!                                                                          
+   * \brief Wymiary obiektu                               
+   */  
+  Vector3D _Scale;
+
+  /*!                                                                          
+   * \brief Kolor obiektu wyrażony za pomocą wektora barw podstawowych RGB
+   */
+  Vector3D _RGB;
+  
+public:
+  /*!
+   * \brief Udostępia wartość kąta \e roll.
+   *
+   * Udostępia wartość kąta \e roll. Jest ona wyrażona w stopniach.
+   */
+  double GetAng_Roll_deg() const { return _Ang_Roll_deg; }
+  /*!
+   * \brief Udostępia wartość kąta \e pitch.
+   *
+   * Udostępia wartość kąta \e pitch. Jest ona wyrażona w stopniach.
+   */
+  double GetAng_Pitch_deg() const { return _Ang_Pitch_deg; }
+  /*!
+   * \brief Udostępia wartość kąta \e yaw.
+   *
+   * Udostępia wartość kąta \e yaw. Jest ona wyrażona w stopniach.
+   */
+  double GetAng_Yaw_deg() const { return _Ang_Yaw_deg; }
+  
+  /*!
+   * \brief Zmienia wartość kąta \e roll.
+   *
+   * Zmienia wartość kąta \e roll.
+   * \param[in] Ang_Roll_deg - nowa wartość kąta \e roll wyrażona w stopniach.
+   */
+  void SetAng_Roll_deg(double Ang_Roll_deg) { _Ang_Roll_deg = Ang_Roll_deg; }
+  /*!
+   * \brief Zmienia wartość kąta \e pitch.
+   *
+   * Zmienia wartość kąta \e pitch.
+   * \param[in] Ang_Pitch_deg - nowa wartość kąta \e pitch wyrażona w stopniach.
+   */
+  void SetAng_Pitch_deg(double Ang_Pitch_deg) { _Ang_Pitch_deg = Ang_Pitch_deg; }
+  /*!
+   * \brief Zmienia wartość kąta \e yaw.
+   *
+   * Zmienia wartość kąta \e yaw.
+   * \param[in] Ang_Yaw_deg - nowa wartość kąta \e yaw wyrażona w stopniach.
+   */
+  void SetAng_Yaw_deg(double Ang_Yaw_deg) { _Ang_Yaw_deg = Ang_Yaw_deg; }
+  
+  /*!
+   * \brief Udostępnia współrzędne położenia obiektu w trybie tylko do odczytu.
+   *
+   * Udostępnia współrzędne punktu, który definiuje położenia obiektu
+   * w trybie tylko do odczytu.
+   * Domyślnie przyjmuje się, że jest to geometryczny środek bryły.
+   */
+  const Vector3D & GetPosition_m() const { return _Position_m; }
+  /*!
+   * \brief Udostępnia współrzędne położenia obiektu w trybie modyfikacji.
+   *
+   * Udostępnia współrzędne punktu, który definiuje położenia obiektu
+   * w trybie modyfikacji.
+   * Domyślnie przyjmuje się, że jest to geometryczny środek bryły.
+   */
+  Vector3D & UsePosition_m() { return _Position_m; }
+  /*!
+   * \brief Zmienia współrzędne położenia obiektu.
+   *
+   * Zmienia współrzędne punktu, który definiuje położenia obiektu.
+   * Domyślnie przyjmuje się, że jest to geometryczny środek bryły.
+   * \param[in] rPos_m - współrzędne nowgo położenia. Przyjmuje się,
+   *                     że są one wyrażone w metrach.
+   */
+  void SetPosition_m(const Vector3D &rPos_m) { _Position_m = rPos_m; }
+  
+  
+  /*!
+   * \brief Zmienia nazwę obiektu.
+   *
+   *  Zmienia nazwę obiektu.
+   *  \param[in] sName - nowa nazwa obiektu.
+   */
+  void SetName(std::string sName) { _Name = sName; }
+  /*!
+   * \brief Udostępnia nazwę obiektu.
+   *
+   * Udostępnia nazwę obiektu w trybie tylko do odczytu.
+   */
+  const std::string & GetName() const { return _Name; }
+  
+  /*!                                                                          
+   * \brief Zmienia wymiary obiektu.                             
+   *                                                           
+   * \param[in] Scale - nowe wymiary                         
+   */
+
+  void SetScale(const Vector3D &Scale) { _Scale = Scale; }
+
+  /*!                                                                          
+   * \brief Zwraca wektor wymiarów obiektu                        
+   *                                                                           
+   * \return wymiary obiektu 
+   */
+
+  const Vector3D & GetScale() const { return _Scale; }
+
+  /*!                                                                          
+   * \brief Zmienia parametr Shift
+   *                                                                           
+   * \param[in] Shift - nowy parametr Shift                                    
+   */
+
+  void SetShift(const Vector3D &Shift) { _Shift = Shift; }
+
+  /*!                                                                          
+   * \brief Zwraca wektor Shift                                                
+   */
+
+  const Vector3D & GetShift() const { return _Shift; }
+
+  /*!                                                                          
+   * \brief Ustawia nowy kolor obiektu                                         
+   *                                 
+   * \param[in] RGB - wektor opisujący nowy kolor
+   */
+
+  void SetColour(const Vector3D &RGB) { _RGB = RGB; }
+
+  /*!                                                                          
+   * \brief Zwraca kolor obiektu          
+   *                                                                           
+   * \return wektor RGB                                               
+   */
+
+  const Vector3D & GetColour() const { return _RGB; }
+
+  /*!                                                                          
+   * \brief Zwraca orientację obiektu                                      
+   *                                                                           
+   * \return wektor orientacji 3D 
+   */
+
+  const Vector3D GetRot() const {  
+    Vector3D v; 
+    v[0]=_Ang_Roll_deg; 
+    v[1]=_Ang_Pitch_deg;
+    v[2]=_Ang_Yaw_deg;
+    return v; 
+  }
+
+
+  /*!                                                                          
+   * \brief Zmienia orientację obiektu.  
+   *                  
+   * \param[in] v - wektor rotacji
+   */
+
+  void SetRot(const Vector3D &v) { _Ang_Roll_deg = v[0]; _Ang_Pitch_deg = v[1]; _Ang_Yaw_deg=v[2]; }
+  
+  /*!
+   * \brief Udostępnia informacje o parametrach i stanie obiektu
+   *
+   * Udostępnia informacje o parametrach i stanie obiektu. Ta metoda 
+   * generuje odpowiednie polecenie na podstawie
+   * przechowywanej informacji o położeniu i orientacji obiektu.
+   * 
+   * \return napis zawierający informacje o obiekcie
+   */
+  std::string GetStateDesc(){
+    std::ostringstream StateDesc;
     
- /*!
- * \brief Wczytuje współrzędne wektora z tekstowego strumienia wejściowego.
- *
- *  Wczytuje współrzędne wektora z tekstowego strumienia wejściowego.
- *  \param IStrm - strumień wejściowy, z którego wczytywane są współrzędne wektora,
- *  \param V - wektor, ktorego współrzędne wczytujemy
+    StateDesc << " Name=" << GetName() <<" Shift="<< GetShift() << " Scale="<<GetScale()<<" RotXYZ_deg="<<GetRot() <<" Trans_m="<<GetPosition_m() << " RGB="<<GetColour()<< "\n";
+    
+    return StateDesc.str();
+  };
+  
+};
+
+/*!
+ * \brief Wczytuje parametry obiektu mobilnego ze  strumienia wejściowego.
+ * \param [in] IStrm - strumień wejściowy, z którego wczytywany jest nowy obiekt,
+ *  \param [out]  MObj - obiekt mobilny, którego dane są wczytywane
+ * \return strumień wejściowy
  */
 
 std::istream & operator >> (std::istream &IStrm, MobileObj & MObj);

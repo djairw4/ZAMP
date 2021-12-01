@@ -24,10 +24,10 @@ LDFLAGS=-Wall
 
 
 
-interp: obj/main.o obj/Interf4Plugin.o obj/Interp4Program.o obj/xmlinterp.o obj/Configuration.o obj/Scene.o obj/MobileObj.o obj/MacierzRot3D.o
-	g++ ${LDFLAGS} -o interp  obj/main.o obj/Interf4Plugin.o obj/Interp4Program.o obj/Configuration.o obj/Scene.o obj/xmlinterp.o obj/MobileObj.o obj/MacierzRot3D.o -ldl -lxerces-c -lpthread
+interp: obj/main.o obj/Interf4Plugin.o obj/Interp4Program.o obj/xmlinterp.o obj/Configuration.o obj/Scene.o obj/MobileObj.o obj/network_connection.o
+	g++ ${LDFLAGS} -o interp  obj/main.o obj/Interf4Plugin.o obj/Interp4Program.o obj/Configuration.o obj/Scene.o obj/xmlinterp.o obj/MobileObj.o obj/network_connection.o -ldl -lxerces-c -lpthread
 
-obj/main.o: src/main.cpp inc/Interp4Command.hh inc/Interp4Program.hh inc/Interf4Plugin.hh inc/xmlinterp.hh inc/Scene.hh inc/Sender.hh
+obj/main.o: src/main.cpp inc/Interp4Command.hh inc/Interp4Program.hh inc/Interf4Plugin.hh inc/xmlinterp.hh inc/Scene.hh inc/network_connection.hh
 	g++ -c ${CPPFLAGS} -o obj/main.o src/main.cpp
 
 obj/Interf4Plugin.o: src/Interf4Plugin.cpp inc/Interf4Plugin.hh
@@ -48,8 +48,8 @@ obj/xmlinterp.o: src/xmlinterp.cpp inc/xmlinterp.hh inc/Configuration.hh
 obj/MobileObj.o: src/MobileObj.cpp inc/MobileObj.hh 
 	g++ -c ${CPPFLAGS} -o obj/MobileObj.o src/MobileObj.cpp
 	
-obj/MacierzRot3D.o: src/MacierzRot3D.cpp inc/MacierzRot3D.hh inc/SMacierz.hh inc/geomVector.hh
-	g++ -c ${CPPFLAGS} -o obj/MacierzRot3D.o src/MacierzRot3D.cpp	
+obj/network_connection.o: src/network_connection.cpp inc/network_connection.hh
+	g++ -c ${CPPFLAGS} -o obj/network_connection.o src/network_connection.cpp		
 		
 
 

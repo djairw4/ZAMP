@@ -31,6 +31,8 @@ class AccessGuard {
     int         _Socket = 0;
 
  public:
+
+  AccessGuard(){}
   /*!
    * \brief Inicjalizuje destrypto gniazda.
    *

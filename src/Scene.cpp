@@ -16,7 +16,7 @@ int Send(int Sk2Server, const char *sMesg){
   return 0;
 }
 
-Scene::Scene(std::map<std::string, std::shared_ptr<MobileObj>> ObjList, int Socket) : _ObjList(ObjList) {
+Scene::Scene(std::map<std::string, std::shared_ptr<MobileObj>> ObjList,int & Socket) : _ObjList(ObjList) {
   for ( const std::pair<std::string, std::shared_ptr<MobileObj>> & iter : _ObjList){ 
      std::string msg="AddObj";
      msg += iter.second->GetStateDesc();

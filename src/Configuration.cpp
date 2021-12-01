@@ -6,18 +6,13 @@
 #include <xercesc/util/XMLString.hpp>
 #include "xmlinterp.hh"
 #include <iostream>
-#include <list>
 
 using namespace std;
 using namespace xercesc;
 
-
-
 void Configuration::addLib(std::string LibName){
 std::shared_ptr<Interf4Plugin> pLib = std::make_shared<Interf4Plugin>(LibName);
 _LibList.insert(std::pair<const std::string, std::shared_ptr<Interf4Plugin>>(pLib->getCmdName(),pLib));
-//cout<<pLib->getCmdName()<<" "<<_LibList.size()<<endl;
-
 }
 
 void Configuration::addObj(const std::string &Name, const Vector3D &Shift, const Vector3D &Scale, const Vector3D &Rot, const Vector3D &Trans, const Vector3D &RGB) 

@@ -16,35 +16,56 @@
 #include "MobileObj.hh"
 #include <map>
 
+/*!
+ * \file
+ * \brief Definicja klasy Scene
+ *
+ * Plik zawiera definicję klasy Scene, moedelującej scenę, po której
+ * poruszają się obiekty
+ */
 
 
 /*!
- * \brief Namiastka sceny z prostą kolekcją trzech wizualizowanych obiektów.
+ * \brief Modeluje scenę dla obiektów mobilnych
+ *
+ *  Klasa modeluje scenę, po której poruszać mogą się obiekty mobilne,
+ *  przechowuje mapę znajdujących się na niej obiektów.
+ *
  */
 class Scene  {
-
+  /*!
+   * \brief Lista obiektów na scenie
+   *
+   *  Mapa mobilnych obiektów na scenie, której kluczami są nazwy posczególnych
+   *  obiektów
+   */
   std::map<std::string, std::shared_ptr<MobileObj>> _ObjList;
 
   public:
-  Scene(std::map<std::string, std::shared_ptr<MobileObj>> ObjList, int Socket); 
-  
+  /*!
+   * \brief Konstruktor bezparametryczny
+   */
+  Scene(){}
+  /*!
+   * \brief Wczytuje listę obiektów z konfiguracji
+   * 
+   * Wczytuje z konfiguracji zestaw obiektów mobilnych oraz wysyła ich parametry do serwera
+   */
+  Scene(std::map<std::string, std::shared_ptr<MobileObj>> ObjList,int & Socket);
+  /*!
+   * \brief Przekazuje listę obiektów dostępnych  na scenie
+   * \return  listę obiektów mobilnych
+   */
   std::map<std::string, std::shared_ptr<MobileObj>> getObjList(){return _ObjList;}
-  
+  /*!
+   * \brief Znajduje obiekt na scenie
+   *
+   *  Znajduje obiekt, o podanej nazwie, w zbiorze obiektów,
+   *  znajdujących się na scenie i zwraca wskaźnik na niego.
+   * \param[in] Name - nazwa obiektu
+   * \return Wskaźnik dzielony na znaleziony obiekt
+   */
   std::shared_ptr<MobileObj> FindMobileObj(std::string Name);
-  
-  //std::vector<std::shared_ptr<MobileObj>> & getObjPtrs() {std::vector<std::shared_ptr<MobileObj>> Mob;}
-  /*
-  bool addObjs2Server( int Socket){ 
-  std::map<const std::string, std::shared_ptr<MobileObj>>::const_iterator    Iter = _ObjList.begin;  
-  if (Iter == (pScn->getObjList()).end()) {
-    pScn->UnlockAccess();
-    std::cerr << "Nieznany obiekt: " << _ObjName<< endl;
-    return false;
-  }
-  std::shared_ptr<MobileObj> pObj=Iter->second;
-  usleep(300000);
-  return true;
-   }*/
   
 };
 

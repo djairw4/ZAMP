@@ -48,9 +48,13 @@
     * \brief Czyta wartości parametrów danego polecenia.
     */
    virtual bool ReadParams(std::istream& Strm_CmdsList) = 0;
-   
+   /*!
+    * \brief Zwraca nazwę obiektu
+    */
    virtual const std::string GetObjName() = 0;
-
+   /*!
+    * \brief Wysyła wiadomości do serwera 
+    */
    virtual int send(int Sk2Server, const char *sMesg) = 0;
 
  };

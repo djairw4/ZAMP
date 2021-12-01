@@ -11,9 +11,11 @@
 #define kat_ob2 720
 #define czas 2000
 
-
 Begin_Parallel_Actions
 Set samochod 2 -2 1 30 0 0
+End_Parallel_Actions
+
+Begin_Parallel_Actions
 Move samochod 0.5 3  
 Rotate kolo1 predkosc_kat x kat_ob
 Rotate kolo2 predkosc_kat x kat_ob

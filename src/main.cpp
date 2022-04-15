@@ -26,6 +26,8 @@ int main(int argc, char **argv)
   int Socket4Sending;   
   
   if (!OpenConnection(Socket4Sending)) return 1;
+
+  Send(Socket4Sending,"Clear\n");
   
   Scene Scn(Config.getObjList(),Socket4Sending);
   AccessGuard Guard(Socket4Sending);

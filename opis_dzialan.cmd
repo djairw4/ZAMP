@@ -45,4 +45,8 @@ Rotate kolo3 predkosc_kat2 x kat_ob2
 Rotate kolo4 predkosc_kat x kat_ob2
 End_Parallel_Actions
 
+Begin_Parallel_Actions
+Set samochod 0 0 0.31 0 0 90
+End_Parallel_Actions
+
 
